@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  hash  String
+
+  userName              String
+  teamAsLeader          Team[]
+  matchAsCreater        Match[] @relation("MatchCreater")
+  matchAsHomeTeamLeader Match[] @relation("HomeTeamLeader")
+  matchAsAwayTeamLeader Match[] @relation("AwayTeamLeader")
+
+  @@map("users")
+}
+
+model Team {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teamName   String
+  region     String
+  teamLevel  Level  @default(BEGINNER)
+  mannerRate Int    @default(36)
+
+  userId          Int
+  headCount       Int
+  teamLeader      User     @relation(fields: [userId], references: [id])
+  teamMember      String[]
+  matchAsHomeTeam Match[]  @relation("HomeTeam")
+  matchAsAwayTeam Match[]  @relation("AwayTeam")
+
+  @@map("teams")
+}
+
+model Match {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId      Int
+  createdUser User @relation("MatchCreater", fields: [userId], references: [id])
+
+  stadiumName      String
+  matchLevel       Level
+  headCountPerTeam Int
+
+  homeTeamId        Int
+  homeTeam          Team     @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  homeTeamHeadCount Int
+  homeTeamLeaderId  Int
+  homeTeamLeader    User     @relation("HomeTeamLeader", fields: [homeTeamLeaderId], references: [id])
+  homeTeamMember    String[]
+
+  awayTeamId        Int?
+  awayTeam          Team?    @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  awayTeamHeadCount Int?
+  awayTeamLeaderId  Int?
+  awayTeamLeader    User?    @relation("AwayTeamLeader", fields: [awayTeamLeaderId], references: [id])
+  awayTeamMember    String[]
+
+  @@map("matches")
+}
+
+enum Level {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
