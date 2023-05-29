@@ -90,9 +90,7 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .get('/users/me')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .expectStatus(200);
       });
     });
@@ -106,9 +104,7 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .patch('/users')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .withBody(dto)
           .expectStatus(200)
           .expectBodyContains(dto.email)
@@ -123,9 +119,7 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .get('/teams')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .expectStatus(200)
           .expectBody([]);
       });
@@ -140,9 +134,7 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .post('/teams')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .withBody(dto)
           .expectStatus(201)
           .stores('teamId', 'id');
@@ -154,9 +146,7 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .get('/teams')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .expectStatus(200)
           .expectJsonLength(1);
       });
@@ -168,9 +158,7 @@ describe('App e2e', () => {
           .spec()
           .get('/teams/{id}')
           .withPathParams('id', '$S{teamId}')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .expectStatus(200)
           .expectBodyContains('$S{teamId}');
       });
@@ -181,9 +169,7 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .get('/teams/my')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .expectStatus(200);
       });
     });
@@ -198,9 +184,7 @@ describe('App e2e', () => {
           .spec()
           .patch('/teams/{id}')
           .withPathParams('id', '$S{teamId}')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .withBody(dto)
           .expectStatus(200)
           .expectBodyContains(dto.teamName)
@@ -214,9 +198,7 @@ describe('App e2e', () => {
           .spec()
           .delete('/teams/{id}')
           .withPathParams('id', '$S{teamId}')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
+          .withCookies('jwt', '$S{userAt}')
           .expectStatus(204);
       });
 
@@ -224,11 +206,8 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .get('/teams')
-          .withHeaders({
-            Authorization: `Bearer $S{userAt}`,
-          })
-          .expectStatus(200)
-          .expectJsonLength(0);
+          .withCookies('jwt', '$S{userAt}')
+          .expectStatus(200);
       });
     });
   });

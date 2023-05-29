@@ -21,10 +21,8 @@ model User {
   userName String
 
   // Link
-  teamAsLeader          Team[]
-  matchAsCreater        Match[] @relation("MatchCreater")
-  matchAsHomeTeamLeader Match[] @relation("HomeTeamLeader")
-  matchAsAwayTeamLeader Match[] @relation("AwayTeamLeader")
+  teamAsLeader   Team[]
+  matchAsCreater Match[] @relation("MatchCreater")
 
   @@map("users")
 }
@@ -34,11 +32,12 @@ model Team {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  teamName   String
-  region     String
-  teamLevel  Level  @default(BEGINNER)
-  mannerRate Int    @default(36)
-  headCount  Int    @default(1)
+  teamName    String
+  region      String
+  teamLevel   Level  @default(BEGINNER)
+  mannerRate  Int    @default(36)
+  mannerCount Int    @default(0)
+  headCount   Int    @default(1)
 
   leaderId   Int
   teamLeader User     @relation(fields: [leaderId], references: [id])
@@ -51,6 +50,7 @@ model Team {
   @@map("teams")
 }
 
+// 경기 룰 추가하기
 model Match {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -63,19 +63,17 @@ model Match {
   matchLevel       Level
   headCountPerTeam Int
 
-  homeTeamId        Int
-  homeTeam          Team     @relation("HomeTeam", fields: [homeTeamId], references: [id])
-  homeTeamHeadCount Int
-  homeTeamLeaderId  Int
-  homeTeamLeader    User     @relation("HomeTeamLeader", fields: [homeTeamLeaderId], references: [id])
-  homeTeamMember    String[]
+  homeTeamId                  Int
+  homeTeam                    Team     @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  homeTeamLeaderId            Int
+  homeTeamParticipatingMember String[]
 
-  awayTeamId        Int?
-  awayTeam          Team?    @relation("AwayTeam", fields: [awayTeamId], references: [id])
-  awayTeamHeadCount Int?
-  awayTeamLeaderId  Int?
-  awayTeamLeader    User?    @relation("AwayTeamLeader", fields: [awayTeamLeaderId], references: [id])
-  awayTeamMember    String[]
+  awayTeamId                  Int?
+  awayTeam                    Team?    @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  awayTeamLeaderId            Int?
+  awayTeamParticipatingMember String[]
+
+  MatchResult MatchResult[]
 
   @@map("matches")
 }
@@ -85,11 +83,52 @@ model MatchResult {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  match   Match
+  matchId Int
+  match   Match @relation(fields: [matchId], references: [id])
+
+  homeTeamScore  Int?
+  homeComment    String?
+  homemannerRate Evaluation?
+
+  awayTeamScore  Int?
+  awayComment    String?
+  awaymannerRate Evaluation?
+
+  @@map("match results")
 }
+
+// 이전 버전
+// model MatchResult {
+//   id        Int      @id @default(autoincrement())
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//
+//   stadiumName      String
+//   matchLevel       Level
+//   headCountPerTeam Int
+//
+//   homeTeamId     Int
+//   homeTeam       Match      @relation("Home", fields: [homeTeamId], references: [id])
+//   homeTeamScore  Int
+//   homeComment    String
+//   homemannerRate Evaluation
+//
+//   awayTeamId     Int
+//   awayTeam       Match      @relation("Away", fields: [awayTeamId], references: [id])
+//   awayTeamScore  Int
+//   awayComment    String
+//   awaymannerRate Evaluation
+//
+//   @@map("match results")
+// }
 
 enum Level {
   BEGINNER
   INTERMEDIATE
   ADVANCED
+}
+
+enum Evaluation {
+  BAD
+  GOOD
 }
