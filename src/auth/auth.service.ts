@@ -4,6 +4,7 @@ import { SigninDto, SignupDto } from './dto';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -13,10 +14,9 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  async signup(signupDto: SignupDto) {
+  async signup(signupDto: SignupDto, response: Response) {
     // 패스워드 해시 생성
     const hash = await argon.hash(signupDto.password);
-
     try {
       // DB에 유저 저장
       const user = await this.prisma.user.create({
@@ -28,7 +28,7 @@ export class AuthService {
       });
 
       // 저장된 유저 리턴
-      return this.signToken(user.id, user.email);
+      return this.setJwtToCookie(user.id, user.email, response);
     } catch (error) {
       if (error.code == 'P2002') {
         throw new ForbiddenException('Credentials taken');
@@ -37,7 +37,7 @@ export class AuthService {
     }
   }
 
-  async signin(signinDto: SigninDto) {
+  async signin(signinDto: SigninDto, response: Response) {
     // 이메일로 유저 찾기
     const user = await this.prisma.user.findUnique({
       where: {
@@ -55,24 +55,26 @@ export class AuthService {
     if (!pwMatches) throw new ForbiddenException('Credentials incorrect');
 
     // 유저 리턴
-    return this.signToken(user.id, user.email);
+    return this.setJwtToCookie(user.id, user.email, response);
   }
 
-  async signToken(
+  async setJwtToCookie(
     userId: number,
     email: string,
+    response: Response,
   ): Promise<{ access_token: string }> {
     const payolad = {
       sub: userId,
       email,
     };
 
-    const secret = this.config.get('JWT_SECRET');
-
+    const secret = await this.config.get('JWT_SECRET');
     const token = await this.jwt.signAsync(payolad, {
       expiresIn: '15m',
       secret: secret,
     });
+
+    await response.cookie('jwt', token, { httpOnly: true, secure: true });
 
     return {
       access_token: token,

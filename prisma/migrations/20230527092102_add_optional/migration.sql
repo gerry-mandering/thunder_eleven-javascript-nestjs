@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "teams" ALTER COLUMN "teamLevel" DROP NOT NULL,
+ALTER COLUMN "mannerRate" DROP NOT NULL,
+ALTER COLUMN "headCount" DROP NOT NULL;

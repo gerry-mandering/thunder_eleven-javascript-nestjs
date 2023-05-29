@@ -18,7 +18,9 @@ model User {
   email String @unique
   hash  String
 
-  userName              String
+  userName String
+
+  // Link
   teamAsLeader          Team[]
   matchAsCreater        Match[] @relation("MatchCreater")
   matchAsHomeTeamLeader Match[] @relation("HomeTeamLeader")
@@ -36,13 +38,15 @@ model Team {
   region     String
   teamLevel  Level  @default(BEGINNER)
   mannerRate Int    @default(36)
+  headCount  Int    @default(1)
 
-  userId          Int
-  headCount       Int
-  teamLeader      User     @relation(fields: [userId], references: [id])
-  teamMember      String[]
-  matchAsHomeTeam Match[]  @relation("HomeTeam")
-  matchAsAwayTeam Match[]  @relation("AwayTeam")
+  leaderId   Int
+  teamLeader User     @relation(fields: [leaderId], references: [id])
+  teamMember String[]
+
+  // Link
+  matchAsHomeTeam Match[] @relation("HomeTeam")
+  matchAsAwayTeam Match[] @relation("AwayTeam")
 
   @@map("teams")
 }
@@ -74,6 +78,14 @@ model Match {
   awayTeamMember    String[]
 
   @@map("matches")
+}
+
+model MatchResult {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  match   Match
 }
 
 enum Level {
