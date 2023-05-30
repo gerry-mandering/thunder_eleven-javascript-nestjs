@@ -18,7 +18,7 @@ import * as cookieParser from 'cookie-parser';
     MatchModule,
     TeamModule,
     PrismaModule,
-    MatchResultModule,
+    // MatchResultModule,
   ],
 })
 export class AppModule implements NestModule {

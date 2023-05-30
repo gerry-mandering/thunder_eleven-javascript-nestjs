@@ -51,6 +51,7 @@ export class MatchController {
   @Render('participant')
   getParticipatePage(@Param('id', ParseIntPipe) matchId: number) {
     return { matchId };
+    //:id/participant에 Post 요청하도록 hbs파일 수정
   }
 
   //Away팀의 참여 신청
@@ -64,7 +65,7 @@ export class MatchController {
   }
 
   //매치를 등록한 팀장이 매치 수정(stadiumName, headCountPerTeam, homeTeamMember)
-  @Patch(':id')
+  @Patch(':id/home')
   editMatchAsHomeTeamById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) matchId: number,
@@ -74,7 +75,7 @@ export class MatchController {
   }
 
   //Away팀으로 참여한 팀장이 매치 수정(awayTeamHeadCount, awayTeamMember)
-  @Patch(':id')
+  @Patch(':id/away')
   editMatchAsAwayTeamById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) matchId: number,
@@ -84,7 +85,7 @@ export class MatchController {
   }
 
   //Away팀으로 참여한 팀장이 매치 취소
-  @Patch(':id')
+  @Patch(':id/cancellation')
   cancelMatchAsAwayTeamById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) matchId: number,

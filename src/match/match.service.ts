@@ -57,10 +57,10 @@ export class MatchService {
       where: {
         OR: [
           {
-            homeTeamId: userId,
+            homeTeamLeaderId: userId,
           },
           {
-            awayTeamId: userId,
+            awayTeamLeaderId: userId,
           },
         ],
       },
@@ -96,7 +96,6 @@ export class MatchService {
       );
 
     const team = await this.findTeam(userId);
-
     //팀이 없거나, home팀이 away팀으로 중복 참여하는 경우
     if (!team || team.leaderId !== userId)
       throw new ForbiddenException(
@@ -169,7 +168,7 @@ export class MatchService {
 
     //매치가 있는지와 userId와 homeTeamLeadId가 일치하는지 확인
     if (!match || match.awayTeamLeaderId !== userId)
-      throw new ForbiddenException('Access to resources denied');
+      throw new ForbiddenException('Access to resources denied!');
 
     //매치 내용 업데이트
     return this.prisma.match.update({
@@ -203,7 +202,7 @@ export class MatchService {
       data: {
         awayTeamId: null,
         awayTeamLeaderId: null,
-        awayTeamParticipatingMember: null,
+        awayTeamParticipatingMember: [],
       },
     });
   }

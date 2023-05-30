@@ -1,21 +1,16 @@
-import {
-  IsArray,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class EditMatchByHomeLeaderDto {
   @IsString()
   @IsOptional()
-  stadiumName: string;
+  stadiumName?: string;
 
   @IsNumber()
   @IsOptional()
-  headCountPerTeam: number;
+  headCountPerTeam?: number;
 
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
-  homeTeamParticipatingMember: string[];
+  homeTeamParticipatingMember?: string[];
 }

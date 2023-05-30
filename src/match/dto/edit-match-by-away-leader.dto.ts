@@ -4,5 +4,5 @@ export class EditMatchByAwayLeaderDto {
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
-  homeTeamParticipatingMember: string[];
+  awayTeamParticipatingMember?: string[];
 }
