@@ -37,7 +37,7 @@
 
     .profile .field input[type="text"],
     .profile .field input[type="email"] {
-      width: 100%;
+      width: 95%;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
@@ -71,7 +71,8 @@
     }
 
     .home-button {
-      text-align: left;
+      text-align: center;
+      margin-top: 30px;
     }
 
     .home-button button {
@@ -95,7 +96,7 @@
 <body>
 <h2>Edit Profile</h2>
 <div class="profile">
-  <form action="profile" method="post">
+  <form action="/user/edit?_method=PATCH" method="POST">
     <div class="field">
       <label>Username:</label>
       <input type="text" name="userName" placeholder="{{ userName }}" required>
@@ -105,14 +106,14 @@
       <input type="email" name="email" placeholder="{{ email }}" required>
     </div>
     <div class="edit-profile-button">
-      <div class="home-button">
-        <form action="/" method="get">
-          <button>Home</button>
-        </form>
-      </div>
       <button type="submit">Update Profile</button>
     </div>
   </form>
+  <div class="home-button">
+    <form action="/" method="get">
+      <button>Home</button>
+    </form>
+  </div>
 </div>
 </body>
 </html>

@@ -40,12 +40,25 @@
   </style>
 </head>
 <body>
-<h2>Main Page</h2>
+<h2>Main</h2>
 <div class="links-container">
-  <a href="signup.html">Sign Up</a>
-  <a href="signin.html">Sign In</a>
-  <a href="profile.html">Profile</a>
-  <a href="profile-edit.html">Edit Profile</a>
+  <h3>Auth Module</h3>
+  <a href="auth/signup">Sign Up</a>
+  <a href="auth/signin">Sign In</a>
+</div>
+<div class="links-container">
+  <h3>User Module</h3>
+  <a href="user">Profile</a>
+  <a href="user/edit">Edit Profile</a>
+</div>
+<div class="links-container">
+  <h3>Team Module</h3>
+  <a href="/team/create">Create Team</a>
+  <a href="team">Get Teams</a>
+  <!-- 모든 팀 조회 시 팀 하나씩 조회하는 로직 추가 -->
+  <a href="team/my">Get My Team</a>
+  <!-- 내 팀 조회 시 팀 수정하기 로직 추가 -->
+  <!-- 내 팀 조회 시 팀 삭제하기 로직 추가 -->
 </div>
 </body>
 </html>

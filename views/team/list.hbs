@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Team List Board</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .team-list {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .team-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+
+    .team-list li:last-child {
+      border-bottom: none;
+    }
+
+    .team-list li span {
+      flex: 1;
+    }
+
+    .team-list .header {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<h2>Team List Board</h2>
+<div class="team-list">
+  <ul>
+    <li class="header">
+      <span>Team Name</span>
+      <span>Region</span>
+      <span>Team Level</span>
+      <span>Manner Rate</span>
+      <span>Headcount</span>
+      <span>Team Leader</span>
+    </li>
+    {{#each teams}}
+      <li>
+        <span>
+          <a href="/team/{{ id }}">{{ teamName }}</a>
+        </span>
+        <span>{{ region }}</span>
+        <span>{{ teamLevel }}</span>
+        <span>{{ mannerRate }}</span>
+        <span>{{ headCount  }}</span>
+        <span>{{ leaderName }}</span>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+</body>
+</html>

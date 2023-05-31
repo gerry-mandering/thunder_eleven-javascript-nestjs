@@ -85,7 +85,7 @@ export class MatchController {
   }
 
   //Away팀으로 참여한 팀장이 매치 취소
-  @Patch(':id/cancellation')
+  @Patch(':id/cancel')
   cancelMatchAsAwayTeamById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) matchId: number,

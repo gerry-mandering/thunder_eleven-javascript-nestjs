@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Team Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .edit-team {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-team label {
+      font-weight: bold;
+    }
+
+    .edit-team .field {
+      margin-bottom: 20px;
+    }
+
+    .edit-team .field label {
+      display: block;
+    }
+
+    .edit-team .field input[type="text"] {
+      width: 95%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .edit-team .field input[type="text"]::placeholder {
+      color: #999;
+    }
+
+    .edit-team .edit-team-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .edit-team .edit-team-button button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit-team .edit-team-button button:hover {
+      background-color: #45a049;
+    }
+
+    .edit-team .home-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .edit-team .home-button button {
+      background-color: #008CBA;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit-team .home-button button:hover {
+      background-color: #007B9E;
+    }
+  </style>
+</head>
+<body>
+<h2>Edit Team</h2>
+<div class="edit-team">
+  <form action="/team/{{ teamId }}/edit?_method=PATCH" method="POST">
+    <div class="field">
+      <label>Team Name:</label>
+      <input type="text" name="teamName" placeholder="{{ teamName }}">
+    </div>
+    <div class="field">
+      <label>Region:</label>
+      <input type="text" name="region" placeholder="{{ region }}">
+    </div>
+    <div class="field">
+      <label>Team Level:</label>
+      <input type="text" name="teamLevel" value="{{ teamLevel }}" readonly>
+    </div>
+    <div class="field">
+      <label>Manner Rate:</label>
+      <input type="text" name="mannerRate" value="{{ mannerRate }}" readonly>
+    </div>
+    <div class="field">
+      <label>Manner Count:</label>
+      <input type="text" name="mannerCount" value="{{ mannerCount }}" readonly>
+    </div>
+    <div class="field">
+      <label>Head Count:</label>
+      <input type="text" name="headCount" value="{{ headCount }}" readonly>
+    </div>
+    <div class="field">
+      <label>Team Leader:</label>
+      <input type="text" name="teamLeader" value="{{ teamLeader }}" readonly>
+    </div>
+    <div class="field">
+      <label>Team Member:</label>
+      <input type="text" name="teamMember" placeholder="{{ teamMember }}">
+    </div>
+    <div class="edit-team-button">
+      <button type="submit">Update Team</button>
+    </div>
+  </form>
+  <div class="home-button">
+    <form action="/" method="GET">
+      <button>Home</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

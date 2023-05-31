@@ -62,7 +62,8 @@
     }
 
     .home-button {
-      text-align: left;
+      text-align: center;
+      margin-top: 30px;
     }
 
     .home-button button {
@@ -94,15 +95,17 @@
     <label>Email:</label>
     <span>{{ email }}</span>
   </div>
-  <div class="edit-profile-button">
+  <div>
+    <div class="edit-profile-button">
+      <form action="/user/edit" method="GET">
+        <button>Edit Profile</button>
+      </form>
+    </div>
     <div class="home-button">
-      <form action="/" method="get">
+      <form action="/" method="GET">
         <button>Home</button>
       </form>
     </div>
-    <form action="edit" method="get">
-      <button>Edit Profile</button>
-    </form>
   </div>
 </div>
 </body>

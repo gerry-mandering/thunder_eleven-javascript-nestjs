@@ -17,7 +17,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Get('signup')
-  showSignupPage(@Res() response: Response) {
+  renderSignupPage(@Res() response: Response) {
     response.sendFile('auth/signup.html', { root: 'public' });
   }
 
@@ -31,7 +31,7 @@ export class AuthController {
   }
 
   @Get('signin')
-  showSigninPage(@Res() response: Response) {
+  renderSigninPage(@Res() response: Response) {
     response.sendFile('auth/signin.html', { root: 'public' });
   }
 

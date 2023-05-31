@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Team Info Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .team-info {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-info label {
+      font-weight: bold;
+    }
+
+    .team-info .field {
+      margin-bottom: 20px;
+    }
+
+    .team-info .field label {
+      display: block;
+    }
+
+    .team-info .field span {
+      font-weight: normal;
+    }
+
+    .team-info .edit-team-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .team-info .edit-team-button button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .team-info .edit-team-button button:hover {
+      background-color: #45a049;
+    }
+
+    .team-info .home-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .team-info .home-button button {
+      background-color: #008CBA;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .team-info .home-button button:hover {
+      background-color: #007B9E;
+    }
+  </style>
+</head>
+<body>
+<h2>Team Info</h2>
+<div class="team-info">
+  <div class="field">
+    <label>Team Name:</label>
+    <span>{{ teamName }}</span>
+  </div>
+  <div class="field">
+    <label>Region:</label>
+    <span>{{ region }}</span>
+  </div>
+  <div class="field">
+    <label>Team Level:</label>
+    <span>{{ teamLevel }}</span>
+  </div>
+  <div class="field">
+    <label>Manner Rate:</label>
+    <span>{{ mannerRate }}</span>
+  </div>
+  <div class="field">
+    <label>Manner Count:</label>
+    <span>{{ mannerCount }}</span>
+  </div>
+  <div class="field">
+    <label>Head Count:</label>
+    <span>{{ headCount }}</span>
+  </div>
+  <div class="field">
+    <label>Team Leader:</label>
+    <span>{{ teamLeader }}</span>
+  </div>
+  <div class="field">
+    <label>Team Member:</label>
+    <span>{{ teamMember }}</span>
+  </div>
+  <div class="edit-team-button">
+    <form action="/team/{{ teamId }}/edit" method="GET">
+      <button>Edit Team</button>
+    </form>
+  </div>
+  <div class="home-button">
+    <form action="/" method="GET">
+      <button>Home</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

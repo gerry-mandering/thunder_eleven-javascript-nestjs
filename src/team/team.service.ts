@@ -1,41 +1,137 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { CreateTeamDto, EditTeamDto } from './dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { GetUser } from '../auth/decorator';
 
 @Injectable()
 export class TeamService {
   constructor(private prisma: PrismaService) {}
 
   async createTeam(userId: number, dto: CreateTeamDto) {
-    const team = await this.prisma.team.create({
+    //현재 유저의 팀이 존재하는지 확인
+    const team = await this.prisma.team.findFirst({
+      where: {
+        leaderId: userId,
+      },
+    });
+
+    if (team)
+      throw new ForbiddenException(
+        `CreateTeam Denied - Already Leader of Team : ${team.teamName}`,
+      );
+
+    return this.prisma.team.create({
       data: {
         leaderId: userId,
         teamMember: [userId.toString()],
         ...dto,
       },
     });
-
-    return team;
   }
 
-  getTeams() {
-    return this.prisma.team.findMany({});
+  async getTeams() {
+    const teams = await this.prisma.team.findMany({});
+
+    //임시로 userName key 추가해서 반환
+    for (const team of teams) {
+      const leader = await this.prisma.user.findUnique({
+        where: {
+          id: team.leaderId,
+        },
+      });
+      team['leaderName'] = leader.userName;
+    }
+
+    return {
+      teams,
+    };
   }
 
-  getTeamById(teamId: number) {
-    return this.prisma.team.findFirst({
-      where: {
-        id: teamId,
-      },
-    });
-  }
-
-  getMyTeams(userId: number) {
-    return this.prisma.team.findMany({
+  async getMyTeam(userId: number) {
+    const myTeam = await this.prisma.team.findFirst({
       where: {
         leaderId: userId,
       },
     });
+
+    const leader = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    return {
+      teamName: myTeam.teamName,
+      region: myTeam.region,
+      teamLevel: myTeam.teamLevel,
+      mannerRate: myTeam.mannerRate,
+      mannerCount: myTeam.mannerCount,
+      headCount: myTeam.headCount,
+      teamLeader: leader.userName,
+      teamMember: myTeam.teamMember,
+    };
+  }
+
+  async getTeamById(teamId: number) {
+    const team = await this.prisma.team.findFirst({
+      where: {
+        id: teamId,
+      },
+    });
+
+    const leader = await this.prisma.user.findUnique({
+      where: {
+        id: team.leaderId,
+      },
+    });
+
+    return {
+      teamId: team.id,
+      teamName: team.teamName,
+      region: team.region,
+      teamLevel: team.teamLevel,
+      mannerRate: team.mannerRate,
+      mannerCount: team.mannerCount,
+      headCount: team.headCount,
+      teamLeader: leader.userName,
+      teamMember: team.teamMember,
+    };
+  }
+
+  async renderTeamEditPage(userId: number, teamId: number) {
+    const team = await this.prisma.team.findFirst({
+      where: {
+        id: teamId,
+      },
+    });
+
+    if (!team || team.leaderId !== userId)
+      throw new ForbiddenException(
+        `renderTeamEditPage Denied - Not a leader of team : ${team.teamName}`,
+      );
+
+    const leader = await this.prisma.user.findUnique({
+      where: {
+        id: team.leaderId,
+      },
+    });
+
+    return {
+      teamId: team.id,
+      teamName: team.teamName,
+      region: team.region,
+      teamLevel: team.teamLevel,
+      mannerRate: team.mannerRate,
+      mannerCount: team.mannerCount,
+      headCount: team.headCount,
+      teamLeader: leader.userName,
+      teamMember: team.teamMember,
+    };
   }
 
   async editTeamById(userId: number, teamId: number, dto: EditTeamDto) {
