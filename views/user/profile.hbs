@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .profile {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile label {
+      font-weight: bold;
+    }
+
+    .profile .field {
+      margin-bottom: 20px;
+    }
+
+    .profile .field label {
+      display: block;
+    }
+
+    .profile .field span {
+      font-weight: normal;
+    }
+
+    .edit-profile-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .edit-profile-button button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit-profile-button button:hover {
+      background-color: #45a049;
+    }
+
+    .home-button {
+      text-align: left;
+    }
+
+    .home-button button {
+      background-color: #008CBA;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .home-button button:hover {
+      background-color: #007B9E;
+    }
+  </style>
+</head>
+<body>
+<h2>User Profile</h2>
+<div class="profile">
+  <div class="field">
+    <label>Username:</label>
+    <span>{{ userName }}</span>
+  </div>
+  <div class="field">
+    <label>Email:</label>
+    <span>{{ email }}</span>
+  </div>
+  <div class="edit-profile-button">
+    <div class="home-button">
+      <form action="/" method="get">
+        <button>Home</button>
+      </form>
+    </div>
+    <form action="edit" method="get">
+      <button>Edit Profile</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

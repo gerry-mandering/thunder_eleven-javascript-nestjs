@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Profile Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .profile {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile label {
+      font-weight: bold;
+    }
+
+    .profile .field {
+      margin-bottom: 20px;
+    }
+
+    .profile .field label {
+      display: block;
+    }
+
+    .profile .field input[type="text"],
+    .profile .field input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .profile .field input[type="text"]::placeholder,
+    .profile .field input[type="email"]::placeholder {
+      color: #999;
+    }
+
+    .edit-profile-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .edit-profile-button button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit-profile-button button:hover {
+      background-color: #45a049;
+    }
+
+    .home-button {
+      text-align: left;
+    }
+
+    .home-button button {
+      background-color: #008CBA;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .home-button button:hover {
+      background-color: #007B9E;
+    }
+  </style>
+</head>
+<body>
+<h2>Edit Profile</h2>
+<div class="profile">
+  <form action="profile" method="post">
+    <div class="field">
+      <label>Username:</label>
+      <input type="text" name="userName" placeholder="{{ userName }}" required>
+    </div>
+    <div class="field">
+      <label>Email:</label>
+      <input type="email" name="email" placeholder="{{ email }}" required>
+    </div>
+    <div class="edit-profile-button">
+      <div class="home-button">
+        <form action="/" method="get">
+          <button>Home</button>
+        </form>
+      </div>
+      <button type="submit">Update Profile</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>

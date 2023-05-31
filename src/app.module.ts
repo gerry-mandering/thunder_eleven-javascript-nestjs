@@ -5,7 +5,7 @@ import { MatchModule } from './match/match.module';
 import { TeamModule } from './team/team.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
-import { MatchResultModule } from './match_result/match_result.module';
+// import { MatchResultModule } from './match_result/match_result.module';
 import * as cookieParser from 'cookie-parser';
 
 @Module({

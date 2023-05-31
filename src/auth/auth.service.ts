@@ -14,6 +14,7 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
+  //Jwt토큰 로그인 시에만 반환하는 방식으로 수정
   async signup(signupDto: SignupDto, response: Response) {
     // 패스워드 해시 생성
     const hash = await argon.hash(signupDto.password);

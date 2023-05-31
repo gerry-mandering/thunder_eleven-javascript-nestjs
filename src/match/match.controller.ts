@@ -49,7 +49,7 @@ export class MatchController {
   //Away팀의 참여페이지
   @Get(':id/participant')
   @Render('participant')
-  getParticipatePage(@Param('id', ParseIntPipe) matchId: number) {
+  showParticipatePage(@Param('id', ParseIntPipe) matchId: number) {
     return { matchId };
     //:id/participant에 Post 요청하도록 hbs파일 수정
   }

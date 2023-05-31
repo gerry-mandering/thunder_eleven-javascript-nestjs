@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch, Redirect,
+  Render,
+  Req,
+  UseGuards
+} from "@nestjs/common";
 import { JwtGuard } from '../auth/guard';
 import { GetUser } from '../auth/decorator';
 import { User } from '@prisma/client';
@@ -10,13 +18,27 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get('me')
-  getMe(@GetUser() user: User) {
-    return user;
+  @Get('profile')
+  @Render('user/profile')
+  showProfilePage(@GetUser() user: User) {
+    return {
+      userName: user.userName,
+      email: user.email,
+    };
   }
 
-  @Patch()
+  @Get('profile/edit')
+  @Render('user/profile-edit')
+  showProfileEditPage(@GetUser() user: User) {
+    return {
+      userName: user.userName,
+      email: user.email,
+    };
+  }
+
+  @Patch('profile')
+  @Redirect('/', 301)
   editUser(@GetUser('id') userId: number, @Body() dto: EditUserDto) {
-    return this.userService.editUser(userId, dto);
+    this.userService.editUser(userId, dto);
   }
 }
