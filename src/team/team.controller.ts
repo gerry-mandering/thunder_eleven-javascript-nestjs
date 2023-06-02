@@ -18,7 +18,7 @@ import { JwtGuard } from '../auth/guard';
 import { TeamService } from './team.service';
 import { GetUser } from '../auth/decorator';
 import { CreateTeamDto, EditTeamDto } from './dto';
-import { Response } from 'express';
+import { User } from '@prisma/client';
 
 @UseGuards(JwtGuard)
 @Controller('team')
@@ -27,8 +27,9 @@ export class TeamController {
 
   //팀 등록 페이지 정적 렌더링
   @Get('create')
-  renderTeamCreatePage(@Res() response: Response) {
-    response.sendFile('team/create.html', { root: 'public' });
+  @Render('team/create')
+  renderTeamCreatePage(@GetUser() user: User) {
+    return this.teamService.renderTeamCreatePage(user);
   }
 
   //팀장이 팀 등록
@@ -71,6 +72,7 @@ export class TeamController {
 
   //팀장이 팀 수정
   @Patch(':id/edit')
+  @Redirect('../my')
   editTeamById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) teamId: number,
@@ -82,6 +84,7 @@ export class TeamController {
   //팀장이 팀 삭제
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
+  @Redirect('/')
   deleteTeamById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) teamId: number,

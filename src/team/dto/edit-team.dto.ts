@@ -16,24 +16,7 @@ export class EditTeamDto {
   @IsOptional()
   region?: string;
 
-  @IsEnum(Level)
+  @IsString()
   @IsOptional()
-  teamLevel?: Level;
-
-  @IsNumber()
-  @IsOptional()
-  mannerRate?: number;
-
-  @IsNumber()
-  @IsOptional()
-  headCount?: number;
-
-  @IsNumber()
-  @IsOptional()
-  leaderId?: number;
-
-  @IsArray()
-  @IsString({ each: true })
-  @IsOptional()
-  teamMember?: string[];
+  teamMemberString?: string;
 }

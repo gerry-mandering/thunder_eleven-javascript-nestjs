@@ -37,7 +37,7 @@ model Team {
   teamLevel   Level  @default(BEGINNER)
   mannerRate  Int    @default(36)
   mannerCount Int    @default(0)
-  headCount   Int    @default(1)
+  headCount   Int
 
   leaderId   Int
   teamLeader User     @relation(fields: [leaderId], references: [id])

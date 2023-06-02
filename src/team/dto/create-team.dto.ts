@@ -8,4 +8,8 @@ export class CreateTeamDto {
   @IsString()
   @IsNotEmpty()
   region: string;
+
+  @IsString()
+  @IsNotEmpty()
+  teamMemberString: string;
 }

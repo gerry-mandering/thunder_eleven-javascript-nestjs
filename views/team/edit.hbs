@@ -46,6 +46,32 @@
       color: #999;
     }
 
+    .input-member {
+      margin-top: 3px;
+    }
+
+    .add-button {
+      text-align: left;
+      margin-top: 5px;
+    }
+
+    .add-button button {
+      background-color: #999999;
+      color: #fff;
+      border: none;
+      padding: 5px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .add-button button:hover {
+      background-color: #007B9E;
+    }
+
     .edit-team .edit-team-button {
       text-align: center;
       margin-top: 20px;
@@ -89,19 +115,45 @@
     .edit-team .home-button button:hover {
       background-color: #007B9E;
     }
+
+    .edit-team .delete-team-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .edit-team .delete-team-button button {
+      background-color: #FF8766;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit-team .delete-team-button button:hover {
+      background-color: #DB6C4D;
+    }
   </style>
 </head>
 <body>
 <h2>Edit Team</h2>
 <div class="edit-team">
-  <form action="/team/{{ teamId }}/edit?_method=PATCH" method="POST">
+  <!--  <form action="/team/{{ teamId }}/edit?_method=PATCH" method="POST">-->
+  <form action="" method="POST">
+    <div class="field" hidden="hidden">
+      <input class="teamId" type="text" name="teamId" id="teamId" value="{{ teamId }}" readonly>
+    </div>
     <div class="field">
       <label>Team Name:</label>
-      <input type="text" name="teamName" placeholder="{{ teamName }}">
+      <input type="text" name="teamName" id="teamName" value="{{ teamName }}">
     </div>
     <div class="field">
       <label>Region:</label>
-      <input type="text" name="region" placeholder="{{ region }}">
+      <input type="text" name="region" id="region" value="{{ region }}">
     </div>
     <div class="field">
       <label>Team Level:</label>
@@ -119,16 +171,26 @@
       <label>Head Count:</label>
       <input type="text" name="headCount" value="{{ headCount }}" readonly>
     </div>
-    <div class="field">
-      <label>Team Leader:</label>
-      <input type="text" name="teamLeader" value="{{ teamLeader }}" readonly>
-    </div>
-    <div class="field">
+    <div class="field" id="inputMember">
       <label>Team Member:</label>
-      <input type="text" name="teamMember" placeholder="{{ teamMember }}">
+      {{#each teamMember}}
+        {{#if @index}}
+          <input class="input-member" type="text" name="member{{ @index }}" value="{{ this }}">
+        {{else}}
+          <input class="input-member" type="text" name="member{{ @index }}" value="{{ this }}" readonly>
+        {{/if}}
+      {{/each}}
+    </div>
+    <div class="add-button">
+      <button type="button" onclick="addNewMember()">+</button>
     </div>
     <div class="edit-team-button">
       <button type="submit">Update Team</button>
+    </div>
+  </form>
+  <form action="/team/{{ teamId }}?_method=DELETE" method="POST">
+    <div class="delete-team-button">
+      <button type="submit">Delete Team</button>
     </div>
   </form>
   <div class="home-button">
@@ -137,5 +199,6 @@
     </form>
   </div>
 </div>
+<script src="../script-edit.js"></script>
 </body>
 </html>
