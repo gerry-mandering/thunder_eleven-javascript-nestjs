@@ -21,8 +21,7 @@ model User {
   userName String
 
   // Link
-  teamAsLeader   Team[]
-  matchAsCreater Match[] @relation("MatchCreater")
+  teamAsLeader Team[]
 
   @@map("users")
 }
@@ -56,22 +55,23 @@ model Match {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId      Int
-  createdUser User @relation("MatchCreater", fields: [userId], references: [id])
+  stadiumName      String // 사용자가 입력
+  stadiumAddress   String // 사용자가 입력
+  matchDateTime    DateTime // 사용자가 입력
+  matchLevel       Level[]
+  headCountPerTeam Int // 사용자가 입력
 
-  stadiumName      String
-  matchLevel       Level
-  headCountPerTeam Int
+  homeTeamId                     Int
+  homeTeam                       Team     @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  homeTeamLeaderId               Int
+  homeTeamParticipatingHeadCount Int
+  homeTeamParticipatingMember    String[]
 
-  homeTeamId                  Int
-  homeTeam                    Team     @relation("HomeTeam", fields: [homeTeamId], references: [id])
-  homeTeamLeaderId            Int
-  homeTeamParticipatingMember String[]
-
-  awayTeamId                  Int?
-  awayTeam                    Team?    @relation("AwayTeam", fields: [awayTeamId], references: [id])
-  awayTeamLeaderId            Int?
-  awayTeamParticipatingMember String[]
+  awayTeamId                     Int?
+  awayTeam                       Team?    @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  awayTeamLeaderId               Int?
+  awayTeamParticipatingHeadCount Int?
+  awayTeamParticipatingMember    String[]
 
   MatchResult MatchResult[]
 

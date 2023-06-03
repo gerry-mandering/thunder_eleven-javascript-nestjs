@@ -6,6 +6,7 @@ import {
   ParticipateMatchDto,
 } from './dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { Level, User } from '@prisma/client';
 
 @Injectable()
 export class MatchService {
@@ -20,25 +21,61 @@ export class MatchService {
     });
   }
 
+  async renderMatchCreatePage(user: User) {
+    const team = await this.findTeam(user.id);
+
+    if (!team || team.leaderId !== user.id)
+      throw new ForbiddenException(
+        'renderMatchCreatePage Denied - Not a leader of any team',
+      );
+
+    const render_data = {
+      matchLevel: Level[team.teamLevel],
+      homeTeam: team.teamName,
+      homeTeamLeader: user.userName,
+      homeTeamMember: team.teamMember,
+    };
+
+    return render_data;
+  }
+
+  getMatchLevel(matchLevelBitMask: number) {
+    const matchLevel: Level[] = [];
+
+    if (matchLevelBitMask & (2 ** Object.values(Level).indexOf('BEGINNER')))
+      matchLevel.push(Level.BEGINNER);
+    if (matchLevelBitMask & (2 ** Object.values(Level).indexOf('INTERMEDIATE')))
+      matchLevel.push(Level.INTERMEDIATE);
+    if (matchLevelBitMask & (2 ** Object.values(Level).indexOf('ADVANCED')))
+      matchLevel.push(Level.ADVANCED);
+
+    return matchLevel;
+  }
+
   //팀장이 매치 등록
   async createMatch(userId: number, dto: CreateMatchDto) {
-    const team = await this.findTeam(userId);
+    const homeTeam = await this.findTeam(userId);
 
-    if (!team || team.leaderId !== userId)
+    if (!homeTeam || homeTeam.leaderId !== userId)
       throw new ForbiddenException(
-        'createMatch denied - Not a member of any team',
+        'createMatch denied - Not a leader of any team',
       );
+
+    const homeTeamParticipatingMember =
+      dto.homeTeamParticipatingMemberString.split('/');
 
     const match = await this.prisma.match.create({
       data: {
-        userId,
-        matchLevel: team.teamLevel,
-        homeTeamId: team.id,
-        homeTeamLeaderId: userId,
         stadiumName: dto.stadiumName,
+        stadiumAddress: dto.stadiumAddress,
+        matchDateTime: dto.matchDateTime,
+        matchLevel: this.getMatchLevel(dto.matchLevelBitMask),
         headCountPerTeam: dto.headCountPerTeam,
+        homeTeamId: homeTeam.id,
+        homeTeamLeaderId: homeTeam.leaderId,
+        homeTeamParticipatingHeadCount: homeTeamParticipatingMember.length,
         homeTeamParticipatingMember: {
-          set: dto.homeTeamParticipatingMember,
+          set: homeTeamParticipatingMember,
         },
       },
     });
@@ -47,8 +84,36 @@ export class MatchService {
   }
 
   //전체 매치 리스트 조회
-  getMatches() {
-    return this.prisma.match.findMany();
+  async getMatches() {
+    const matches = await this.prisma.match.findMany();
+
+    for (const match of matches) {
+      const homeTeam = await this.prisma.team.findUnique({
+        where: {
+          id: match.homeTeamId,
+        },
+        select: {
+          teamName: true,
+        },
+      });
+      match['homeTeamName'] = homeTeam.teamName;
+
+      if (match.awayTeamId !== null) {
+        const awayTeam = await this.prisma.team.findUnique({
+          where: {
+            id: match.awayTeamId,
+          },
+          select: {
+            teamName: true,
+          },
+        });
+        match['awayTeamName'] = awayTeam.teamName;
+      }
+    }
+
+    return {
+      matches,
+    };
   }
 
   //자신이 등록하거나 Away팀으로 참여한 매치 조회

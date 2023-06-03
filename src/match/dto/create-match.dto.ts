@@ -1,19 +1,31 @@
 import { Type } from 'class-transformer';
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateMatchDto {
   @IsString()
   @IsNotEmpty()
   stadiumName: string;
 
+  @IsString()
+  @IsNotEmpty()
+  stadiumAddress: string;
+
+  @IsDate()
+  @Type(() => Date)
+  @IsNotEmpty()
+  matchDateTime: Date;
+
+  @IsNumber()
+  @Type(() => Number)
+  @IsNotEmpty()
+  matchLevelBitMask: number;
+
   @IsNumber()
   @IsNotEmpty()
   @Type(() => Number)
   headCountPerTeam: number;
 
-  //수정필요
-  //   @IsArray()
-  @IsString({ each: true })
+  @IsString()
   @IsNotEmpty()
-  homeTeamParticipatingMember: string[];
+  homeTeamParticipatingMemberString: string;
 }

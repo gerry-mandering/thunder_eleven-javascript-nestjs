@@ -25,7 +25,7 @@ import { User } from '@prisma/client';
 export class TeamController {
   constructor(private teamService: TeamService) {}
 
-  //팀 등록 페이지 정적 렌더링
+  //팀 생성 페이지 정적 렌더링
   @Get('create')
   @Render('team/create')
   renderTeamCreatePage(@GetUser() user: User) {

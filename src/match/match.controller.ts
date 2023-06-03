@@ -14,22 +14,36 @@ import {
 } from '@nestjs/common';
 import { MatchService } from './match.service';
 import { GetUser } from '../auth/decorator';
-import { CreateMatchDto, EditMatchByAwayLeaderDto, EditMatchByHomeLeaderDto, ParticipateMatchDto } from "./dto";
+import {
+  CreateMatchDto,
+  EditMatchByAwayLeaderDto,
+  EditMatchByHomeLeaderDto,
+  ParticipateMatchDto,
+} from './dto';
 import { JwtGuard } from '../auth/guard';
+import { User } from '@prisma/client';
 
 @UseGuards(JwtGuard)
-@Controller('matches')
+@Controller('match')
 export class MatchController {
   constructor(private matchService: MatchService) {}
 
+  //매치 생성 페이지 정적 렌더링
+  @Get('create')
+  @Render('match/create')
+  renderMatchCreatePage(@GetUser() user: User) {
+    return this.matchService.renderMatchCreatePage(user);
+  }
+
   //팀장이 매치 등록
-  @Post()
+  @Post('create')
   createMatch(@GetUser('id') userId: number, @Body() dto: CreateMatchDto) {
     return this.matchService.createMatch(userId, dto);
   }
 
   //전체 매치 리스트 조회
   @Get()
+  @Render('match/list')
   getMatches() {
     return this.matchService.getMatches();
   }
