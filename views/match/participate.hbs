@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Create Team Page</title>
+  <title>Participate Match Page</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -9,7 +9,6 @@
       margin: 0;
       padding: 20px;
     }
-
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -60,7 +59,7 @@
       margin-top: 20px;
     }
 
-    .create-team {
+    .participate-match {
       max-width: 400px;
       margin: 20px auto 0;
       background-color: #fff;
@@ -69,31 +68,85 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .create-team label {
+    .participate-match label {
       font-weight: bold;
     }
 
-    .create-team .field {
+    .participate-match .field {
       margin-bottom: 20px;
     }
 
-    .create-team .field label {
+    .participate-match .field label {
       display: block;
     }
 
-    .create-team .field input {
+    .participate-match .field input,
+    .participate-match .field select {
       width: 95%;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
 
-    .create-team .submit-button {
+    .match-level {
+      margin-top: 10px;
+    }
+
+    .match-level input[type=checkbox] {
+      height: 0;
+      width: 0;
+      visibility: hidden;
+    }
+
+    .match-level label {
+      cursor: pointer;
+      text-indent: -9999px;
+      width: 40px; /* 20% of the original width */
+      height: 20px; /* 20% of the original height */
+      background: grey;
+      display: block;
+      border-radius: 10px; /* 20% of the original border radius */
+      position: relative;
+    }
+
+    .match-level label:after {
+      content: '';
+      position: absolute;
+      top: 2px; /* Adjust the top position to center the inner circle */
+      left: 2px; /* Adjust the left position to center the inner circle */
+      width: 16px; /* 20% of the original width */
+      height: 16px; /* 20% of the original height */
+      background: #fff;
+      border-radius: 50%; /* Maintain a circular shape */
+      transition: 0.3s;
+    }
+
+    .match-level input:checked + label {
+      background: #bada55;
+    }
+
+    .match-level input:checked + label:after {
+      left: calc(100% - 2px); /* Adjust the left position to maintain proportions */
+      transform: translateX(-100%);
+    }
+
+    .match-level label:active:after {
+      width: 20px; /* 20% of the original width */
+    }
+
+    .match-level body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .participate-match .submit-button {
       text-align: center;
       margin-top: 20px;
     }
 
-    .create-team .submit-button button {
+    .participate-match .submit-button button {
       background-color: #4CAF50;
       color: #fff;
       border: none;
@@ -106,7 +159,7 @@
       cursor: pointer;
     }
 
-    .create-team .submit-button button:hover {
+    .participate-match .submit-button button:hover {
       background-color: #45a049;
     }
 
@@ -132,30 +185,8 @@
       background-color: #007B9E;
     }
 
-    .input-member {
+    .member {
       margin-top: 3px;
-    }
-
-    .add-button {
-      text-align: left;
-      margin-top: 5px;
-    }
-
-    .add-button button {
-      background-color: #999999;
-      color: #fff;
-      border: none;
-      padding: 5px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .add-button button:hover {
-      background-color: #007B9E;
     }
   </style>
 </head>
@@ -178,27 +209,30 @@
   </div>
 </header>
 
-<h2>Create Team</h2>
-<div class="create-team">
+<h2>Participate Match</h2>
+<div class="participate-match">
   <form action="" method="POST">
-    <div class="field">
-      <label>Team Name:</label>
-      <input type="text" name="teamName" id="teamName" placeholder="Enter team name" required>
+    <div hidden="hidden">
+      <input id="matchId" name="matchId" value="{{ matchId }}" readonly>
+      <input id="headCountPerTeam" name="headCountPerTeam" value="{{ headCountPerTeam }}" readonly>
     </div>
     <div class="field">
-      <label>Region:</label>
-      <input type="text" name="region" id="region" placeholder="Enter region" required>
+      <h3>Head Count Per Team: {{ headCountPerTeam }}</h3>
     </div>
     <div class="field" id="inputMember">
-      <label>Team Member:</label>
-      <input class="input-member" type="text" name="member0" id="member0" value="{{ leaderName }}" readonly>
-      <input class="input-member" type="text" name="member1" id="member1" placeholder="Enter member name">
-    </div>
-    <div class="add-button">
-      <button type="button" onclick="addNewMember()">+</button>
+      <label>Away Team Member:</label>
+      {{#each awayTeamMember}}
+        <div class="match-level">
+          <span class="member" type="text" name="awayTeamParticipatingMember{{ @index }}"
+                id="awayTeamParticipatingMember{{ @index }}">{{ this }}</span>
+          <input type="checkbox" name="switch-awayTeamParticipatingMember{{ @index }}"
+                 id="switch-awayTeamParticipatingMember{{ @index }}" />
+          <label for="switch-awayTeamParticipatingMember{{ @index }}">Toggle</label>
+        </div>
+      {{/each}}
     </div>
     <div class="submit-button">
-      <button type="submit">Create</button>
+      <button type="submit">Participate</button>
     </div>
   </form>
   <div class="home-button">
@@ -207,6 +241,6 @@
     </form>
   </div>
 </div>
-<script src="script-create.js"></script>
+<script src="../script-participate.js"></script>
 </body>
 </html>

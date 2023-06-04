@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const headCountInput = document.getElementById('headCountPerTeam');
   const memberCheckboxes = document.querySelectorAll(
-    'input[name^="switch-homeTeamParticipatingMember"]',
+    'input[name^="switch-awayTeamParticipatingMember"]',
   );
   const errorMessage = document.createElement('p');
   errorMessage.textContent =
@@ -25,34 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Get the checkbox elements
-  const beginnerCheckbox = document.getElementById('switch-beginner');
-  const intermediateCheckbox = document.getElementById(
-    'switch-intermediate',
-  );
-  const advancedCheckbox = document.getElementById('switch-advanced');
-
-  // Function to calculate the integer value based on the checkbox state
-  function calculateMatchLevel() {
-    let value = 0;
-
-    // Use bitwise OR (|) operation to set the corresponding bit if the checkbox is checked
-    if (beginnerCheckbox.checked) {
-      value |= 1; // Set first bit
-    }
-    if (intermediateCheckbox.checked) {
-      value |= 2; // Set second bit
-    }
-    if (advancedCheckbox.checked) {
-      value |= 4; // Set third bit
-    }
-
-    return value;
-  }
-
   function getTeamMembers() {
     const memberCheckboxes = document.querySelectorAll(
-      'input[name^="switch-homeTeamParticipatingMember"]:checked',
+      'input[name^="switch-awayTeamParticipatingMember"]:checked',
     );
     let teamMembers = Array.from(memberCheckboxes)
       .map((checkbox) => checkbox.previousElementSibling.textContent)
@@ -73,19 +48,16 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       const formData = new FormData(form);
       const teamMembers = getTeamMembers();
-      const matchDate = document.getElementById('matchDate').value;
-      const matchTime = document.getElementById('matchTime').value;
-      const matchDateTime = new Date(matchDate + ' ' + matchTime + ':00');
-      formData.set('homeTeamParticipatingMemberString', teamMembers);
-      formData.set('matchDateTime', matchDateTime);
-      formData.set('matchLevelBitMask', calculateMatchLevel());
+      formData.set('awayTeamParticipatingMemberString', teamMembers);
 
       const urlSearchParams = new URLSearchParams();
       for (const pair of formData) {
         urlSearchParams.append(pair[0], pair[1]);
       }
 
-      fetch('/match/create', {
+      const matchId = document.getElementById('matchId').value;
+
+      fetch(`/match/${matchId}/participant`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Redirect,
   Render,
   UseGuards,
 } from '@nestjs/common';
@@ -37,6 +38,7 @@ export class MatchController {
 
   //팀장이 매치 등록
   @Post('create')
+  @Redirect('/match')
   createMatch(@GetUser('id') userId: number, @Body() dto: CreateMatchDto) {
     return this.matchService.createMatch(userId, dto);
   }
@@ -50,26 +52,31 @@ export class MatchController {
 
   //자신이 등록하거나 Away팀으로 참여한 매치 조회
   @Get('my')
+  @Render('match/list')
   getMyMatches(@GetUser('id') userId: number) {
     return this.matchService.getMyMatches(userId);
   }
 
   //특정 매치 조회
   @Get(':id')
+  @Render('match/info.hbs')
   getMatchById(@Param('id', ParseIntPipe) matchId: number) {
     return this.matchService.getMatchById(matchId);
   }
 
   //Away팀의 참여페이지
   @Get(':id/participant')
-  @Render('participant')
-  showParticipatePage(@Param('id', ParseIntPipe) matchId: number) {
-    return { matchId };
-    //:id/participant에 Post 요청하도록 hbs파일 수정
+  @Render('match/participate')
+  renderParticipatePage(
+    @GetUser() user: User,
+    @Param('id', ParseIntPipe) matchId: number,
+  ) {
+    return this.matchService.renderParticipantPage(user, matchId);
   }
 
   //Away팀의 참여 신청
   @Post(':id/participant')
+  @Redirect('/match')
   participateAsAwayTeam(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) matchId: number,
@@ -100,6 +107,7 @@ export class MatchController {
 
   //Away팀으로 참여한 팀장이 매치 취소
   @Patch(':id/cancel')
+  @Redirect('/match')
   cancelMatchAsAwayTeamById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) matchId: number,
@@ -110,6 +118,7 @@ export class MatchController {
   //매치를 등록한 팀장이 매치 삭제
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
+  @Redirect('/match')
   deleteMatchById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) matchId: number,

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Match Info Page</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/match/css/css.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>
+      <a href="/">썬더일레븐</a>
+    </h1>
+    <nav>
+      <ul>
+        <li><a href="/match">퀵 매치</a></li>
+        <li><a href="/match-result">전적 보기</a></li>
+        <li><a href="/match-result">경기 후기</a></li>
+        <li><a href="">용병 모집</a></li>
+        <li><a href="/team/my">마이 팀</a></li>
+        <li><a href="/user">프로필</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="teams">
+      <div class="team">
+        <img src="/match/img/stadium.jpg" alt="Team 1">
+        <div class="team_text">
+          <h2>{{ stadiumName }}</h2>
+          <h3>{{ stadiumAddress }}</h3>
+          </br>
+          <p>{{ matchDateTime }}</p>
+          <p>{{ headCountPerTeam }}vs{{ headCountPerTeam }}</p>
+          <p>{{ matchLevel }}</p>
+          {{#unless awayTeamName}}
+            <form action="/match/{{ id }}/participant" method="GET">
+              <div class="participate-button">
+                <button type="submit">참가하기</button>
+              </div>
+            </form>
+          {{else}}
+            <form action="/match/{{ id }}/cancel?_method=PATCH" method="POST">
+              <div class="cancel-button">
+                <button type="submit">참가 취소하기</button>
+              </div>
+            </form>
+          {{/unless}}
+          <form action="/match/{{ id }}?_method=DELETE" method="POST">
+            <div class="delete-button">
+              <button type="submit">매치 삭제하기</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="home-team">
+        <table>
+          <caption>{{ homeTeamName }}</caption>
+          {{#each homeTeamParticipatingMember}}
+            <tr>
+              <th>{{ this }}</th>
+            </tr>
+          {{/each}}
+        </table>
+      </div>
+      {{#if awayTeamName}}
+        <div class="away-team">
+          <table>
+            <caption>{{ awayTeamName }}</caption>
+            {{#each awayTeamParticipatingMember}}
+              <tr>
+                <th>{{ this }}</th>
+              </tr>
+            {{/each}}
+          </table>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2023 썬더일레븐.</p>
+  </div>
+</footer>
+</body>
+</html>

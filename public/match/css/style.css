@@ -1,0 +1,197 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+nav {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+nav ul {
+    list-style: none;
+    margin: 10px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 50px;
+}
+
+nav ul li {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li :hover {
+    text-decoration: none;
+}
+
+main {
+    padding: 20px 0;
+    height: 800px;
+}
+
+.match-info {
+    margin-bottom: 40px;
+}
+
+.teams {
+    display: flex;
+}
+
+.table {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.home-team table {
+    width: 100px;
+    margin: 10px;
+}
+
+.away-team table {
+    width: 100px;
+    margin: 10px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 17px;
+}
+
+.home-team caption {
+    border: 1px solid black;
+    padding: 5px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    background-color: #ff3030
+}
+
+.away-team caption {
+    border: 1px solid black;
+    padding: 5px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    background-color: #3c4cff
+}
+
+.team_text {
+    text-align: center;
+}
+
+.team_text {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.team_text h2 {
+    margin-top: 10px;
+}
+
+.team img {
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
+    margin-bottom: 3px;
+}
+
+.participate-button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.participate-button button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.participate-button button:hover {
+    background-color: #45a049;
+}
+
+.cancel-button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.cancel-button button {
+    background-color: #924ddb;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-button button:hover {
+    background-color: #7f41ba;
+}
+
+
+.delete-button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.delete-button button {
+    background-color: #FF8766;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button button:hover {
+    background-color: #DB6C4D;
+}
+
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}

@@ -6,7 +6,7 @@ import {
   ParticipateMatchDto,
 } from './dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { Level, User } from '@prisma/client';
+import { Level, Team, User } from '@prisma/client';
 
 @Injectable()
 export class MatchService {
@@ -117,8 +117,8 @@ export class MatchService {
   }
 
   //자신이 등록하거나 Away팀으로 참여한 매치 조회
-  getMyMatches(userId: number) {
-    return this.prisma.match.findMany({
+  async getMyMatches(userId: number) {
+    const matches = await this.prisma.match.findMany({
       where: {
         OR: [
           {
@@ -130,15 +130,110 @@ export class MatchService {
         ],
       },
     });
+
+    for (const match of matches) {
+      const homeTeam = await this.prisma.team.findUnique({
+        where: {
+          id: match.homeTeamId,
+        },
+        select: {
+          teamName: true,
+        },
+      });
+      match['homeTeamName'] = homeTeam.teamName;
+
+      if (match.awayTeamId !== null) {
+        const awayTeam = await this.prisma.team.findUnique({
+          where: {
+            id: match.awayTeamId,
+          },
+          select: {
+            teamName: true,
+          },
+        });
+        match['awayTeamName'] = awayTeam.teamName;
+      }
+    }
+
+    return {
+      matches,
+    };
   }
 
   //특정 매치 조회
-  getMatchById(matchId: number) {
-    return this.prisma.match.findFirst({
+  async getMatchById(matchId: number) {
+    const match = await this.prisma.match.findFirst({
       where: {
         id: matchId,
       },
     });
+
+    const homeTeam = await this.prisma.team.findUnique({
+      where: {
+        id: match.homeTeamId,
+      },
+    });
+
+    let awayTeam: Team = null;
+    if (match.awayTeamId !== null) {
+      awayTeam = await this.prisma.team.findUnique({
+        where: {
+          id: match.awayTeamId,
+        },
+      });
+    }
+
+    const render_data = {
+      ...match,
+      homeTeamName: homeTeam.teamName,
+    };
+
+    if (awayTeam !== null) {
+      render_data['awayTeamName'] = awayTeam.teamName;
+    }
+
+    return render_data;
+  }
+
+  async renderParticipantPage(user: User, matchId: number) {
+    const match = await this.prisma.match.findUnique({
+      where: {
+        id: matchId,
+      },
+    });
+
+    if (
+      !match ||
+      match.homeTeamLeaderId === user.id ||
+      match.awayTeamLeaderId !== null
+    )
+      throw new ForbiddenException(
+        'renderParticipantPage Denied - Resource access denied',
+      );
+
+    const awayTeam = await this.prisma.team.findFirst({
+      where: {
+        leaderId: user.id,
+      },
+    });
+
+    if (!awayTeam || awayTeam.leaderId !== user.id)
+      throw new ForbiddenException(
+        'renderParticipantPage Denied - Not a leader of any team',
+      );
+
+    if (!match.matchLevel.includes(awayTeam.teamLevel))
+      throw new ForbiddenException(
+        'renderParticipantPage Denied - Not a joinable awayTeam Level',
+      );
+
+    const render_date = {
+      matchId: match.id,
+      headCountPerTeam: match.headCountPerTeam,
+      awayTeamMember: awayTeam.teamMember,
+    };
+
+    return render_date;
   }
 
   //Away팀의 참여 신청
@@ -178,6 +273,9 @@ export class MatchService {
       },
     });
 
+    const awayTeamParticipatingMember =
+      dto.awayTeamParticipatingMemberString.split('/');
+
     return this.prisma.match.update({
       where: {
         id: matchId,
@@ -185,7 +283,8 @@ export class MatchService {
       data: {
         awayTeamId: team.id,
         awayTeamLeaderId: userId,
-        ...dto,
+        awayTeamParticipatingHeadCount: awayTeamParticipatingMember.length,
+        awayTeamParticipatingMember: awayTeamParticipatingMember,
       },
     });
   }
@@ -260,13 +359,26 @@ export class MatchService {
       throw new ForbiddenException('Access to resources denied');
 
     //매치 내용 업데이트
-    return this.prisma.match.update({
+    const matchResult = await this.prisma.matchResult.findFirst({
+      where: {
+        matchId: matchId,
+      },
+    });
+
+    await this.prisma.matchResult.delete({
+      where: {
+        id: matchResult.id,
+      },
+    });
+
+    await this.prisma.match.update({
       where: {
         id: matchId,
       },
       data: {
         awayTeamId: null,
         awayTeamLeaderId: null,
+        awayTeamParticipatingHeadCount: null,
         awayTeamParticipatingMember: [],
       },
     });

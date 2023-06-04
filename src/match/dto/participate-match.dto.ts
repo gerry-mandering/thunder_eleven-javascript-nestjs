@@ -1,8 +1,7 @@
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class ParticipateMatchDto {
-  @IsArray()
-  @IsString({ each: true })
+  @IsString()
   @IsNotEmpty()
-  awayTeamParticipatingMember: string[];
+  awayTeamParticipatingMemberString: string;
 }
