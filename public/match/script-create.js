@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   );
   const errorMessage = document.createElement('p');
   errorMessage.textContent =
-    'Head Count Per Team does not match with selected team members!';
+    '선택된 멤버의 수와 경기 참여 인원이 일치하지 않습니다!';
   errorMessage.style.color = 'red';
   errorMessage.style.marginTop = '10px';
   errorMessage.style.display = 'none';

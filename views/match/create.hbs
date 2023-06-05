@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Create Match Page</title>
+  <title>매치 생성 페이지</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -70,11 +70,12 @@
     }
 
     .create-match label {
+      margin-bottom: 10px;
       font-weight: bold;
     }
 
     .create-match .field {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .create-match .field label {
@@ -201,8 +202,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -210,46 +211,46 @@
   </div>
 </header>
 
-<h2>Create Match</h2>
+<h2>매치 생성</h2>
 <div class="create-match">
   <form action="" method="POST">
     <div class="field">
-      <label>Stadium Name:</label>
-      <input type="text" name="stadiumName" id="stadiumName" placeholder="Enter stadium name" required>
+      <label>경기장</label>
+      <input type="text" name="stadiumName" id="stadiumName" placeholder="경기장을 입력하시오" required>
     </div>
     <div class="field">
-      <label>Stadium Address:</label>
-      <input type="text" name="stadiumAddress" id="stadiumAddress" placeholder="Enter stadium address" required>
+      <label>경기장 주소</label>
+      <input type="text" name="stadiumAddress" id="stadiumAddress" placeholder="경기장 주소를 입력하시오" required>
     </div>
     <div class="field">
-      <label>Match Date:</label>
+      <label>경기 날짜</label>
       <input type="date" name="matchDate" id="matchDate" required>
     </div>
     <div class="field">
-      <label>Match Time:</label>
+      <label>경기 시간</label>
       <input type="time" name="matchTime" id="matchTime" required>
     </div>
     <div class="field">
-      <label>Joinable Level:</label>
-      <p>Your Team Level is {{ matchLevel }}</p>
+      <label>참여 가능한 레벨</label>
+      <p>당신의 팀 {{ homeTeam }}의 레벨은 {{ matchLevel }} 입니다</p>
       <ul>
         <div class="match-level">
           <li>
-            <span class="match-level-label">BEGINNER</span>
+            <span>입문자 - BEGINNER</span>
             <input type="checkbox" name="switch-beginner" id="switch-beginner" />
             <label for="switch-beginner">Toggle</label>
           </li>
         </div>
         <div class="match-level">
           <li>
-            <span>INTERMEDIATE</span>
+            <span>아마추어 - INTERMEDIATE</span>
             <input type="checkbox" name="switch-intermediate" id="switch-intermediate" />
             <label for="switch-intermediate">Toggle</label>
           </li>
         </div>
         <div class="match-level">
           <li>
-            <span>ADVANCED</span>
+            <span>프로 - ADVANCED</span>
             <input type="checkbox" name="switch-advanced" id="switch-advanced" />
             <label for="switch-advanced">Toggle</label>
           </li>
@@ -257,12 +258,12 @@
       </ul>
     </div>
     <div class="field">
-      <label>Head Count Per Team:</label>
-      <input type="number" name="headCountPerTeam" id="headCountPerTeam" placeholder="Enter head count per team"
+      <label>경기 참여 인원 (한 팀 기준)</label>
+      <input type="number" name="headCountPerTeam" id="headCountPerTeam" placeholder="경기 참여 인원을 입력하시오"
              required>
     </div>
     <div class="field" id="inputMember">
-      <label>Home Team Member:</label>
+      <label>홈 팀 참여 멤버</label>
       {{#each homeTeamMember}}
         <div class="match-level">
           <span class="member" type="text" name="homeTeamParticipatingMember{{ @index }}"
@@ -274,12 +275,12 @@
       {{/each}}
     </div>
     <div class="submit-button">
-      <button type="submit">Create</button>
+      <button type="submit">매치 생성하기</button>
     </div>
   </form>
   <div class="home-button">
     <form action="/" method="get">
-      <button>Home</button>
+      <button>메인</button>
     </form>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sign In Page</title>
+  <title>로그인 페이지</title>
   <style>
       body {
           font-family: Arial, sans-serif;
@@ -84,7 +84,7 @@
           font-size: 16px;
       }
 
-      input[type="submit"] {
+      button {
           background-color: #4CAF50;
           color: #fff;
           border: none;
@@ -97,7 +97,7 @@
           cursor: pointer;
       }
 
-      input[type="submit"]:hover {
+      button:hover {
           background-color: #45a049;
       }
   </style>
@@ -112,8 +112,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -121,15 +121,15 @@
   </div>
 </header>
 
-<h2>Sign In</h2>
+<h2>로그인</h2>
 <form action="/auth/signin" method="POST">
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required><br><br>
+  <label for="email">이메일</label>
+  <input type="email" id="email" name="email" placeholder="이메일을 입력하시오" required><br><br>
 
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required><br><br>
+  <label for="password">비밀번호</label>
+  <input type="password" id="password" name="password" placeholder="비밀번호를 입력하시오" required><br><br>
 
-  <input type="submit" value="Sign In">
+  <button type="submit">로그인</button>
 </form>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Team List Board</title>
+  <title>팀 게시판 페이지</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -104,8 +104,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -113,16 +113,16 @@
   </div>
 </header>
 
-<h2>Team List Board</h2>
+<h2>팀 게시판</h2>
 <div class="team-list">
   <ul>
     <li class="header">
-      <span>Team Name</span>
-      <span>Region</span>
-      <span>Team Level</span>
-      <span>Manner Rate</span>
-      <span>Headcount</span>
-      <span>Team Leader</span>
+      <span>팀 이름</span>
+      <span>활동 지역</span>
+      <span>팀 레벨</span>
+      <span>매너 온도</span>
+      <span>팀 인원</span>
+      <span>팀 리더</span>
     </li>
     {{#each teams}}
       <li>

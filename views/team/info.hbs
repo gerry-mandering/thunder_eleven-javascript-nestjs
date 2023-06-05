@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Team Info Page</title>
+  <title>팀 정보 페이지</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -63,18 +63,20 @@
     .team-info {
       max-width: 400px;
       margin: 20px auto 0;
-      background-color: #fff;
+      background-color: #e0e0e0;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .team-info label {
+      margin-bottom: 10px;
       font-weight: bold;
     }
 
     .team-info .field {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      align-items: center;
     }
 
     .team-info .field label {
@@ -82,7 +84,16 @@
     }
 
     .team-info .field span {
-      font-weight: normal;
+      display: block;
+      padding: 20px 15px;
+      margin-bottom: 20px;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #cacaca, #f0f0f0);
+      box-shadow: 20px 20px 60px #bebebe,
+      -20px -20px 60px #ffffff;
     }
 
     .team-info .edit-team-button {
@@ -140,8 +151,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -149,48 +160,50 @@
   </div>
 </header>
 
-<h2>Team Info</h2>
+<h2>팀 정보</h2>
 <div class="team-info">
   <div class="field">
-    <label>Team Name:</label>
+    <label>팀 이름</label>
     <span>{{ teamName }}</span>
   </div>
   <div class="field">
-    <label>Region:</label>
+    <label>활동 지역</label>
     <span>{{ region }}</span>
   </div>
   <div class="field">
-    <label>Team Level:</label>
+    <label>팀 레벨</label>
     <span>{{ teamLevel }}</span>
   </div>
   <div class="field">
-    <label>Manner Rate:</label>
+    <label>매너 온도</label>
     <span>{{ mannerRate }}</span>
   </div>
   <div class="field">
-    <label>Manner Count:</label>
+    <label>매너 카운트</label>
     <span>{{ mannerCount }}</span>
   </div>
   <div class="field">
-    <label>Head Count:</label>
+    <label>팀 인원</label>
     <span>{{ headCount }}</span>
   </div>
   <div class="field">
-    <label>Team Leader:</label>
+    <label>팀 리더</label>
     <span>{{ teamLeader }}</span>
   </div>
   <div class="field">
-    <label>Team Member:</label>
-    <span>{{ teamMember }}</span>
+    <label>팀 멤버</label>
+    {{#each teamMember}}
+      <span>{{ this }}</span>
+    {{/each}}
   </div>
   <div class="edit-team-button">
     <form action="/team/{{ teamId }}/edit" method="GET">
-      <button>Edit Team</button>
+      <button>팀 수정하기</button>
     </form>
   </div>
   <div class="home-button">
     <form action="/" method="GET">
-      <button>Home</button>
+      <button>메인</button>
     </form>
   </div>
 </div>

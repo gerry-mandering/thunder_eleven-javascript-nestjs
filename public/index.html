@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Main Page</title>
+  <title>메인 페이지</title>
   <style>
       body {
           font-family: Arial, sans-serif;
@@ -60,6 +60,10 @@
           margin-top: 20px;
       }
 
+      h3 {
+          margin-bottom: 20px;
+      }
+
       .links-container {
           max-width: 400px;
           margin: 20px auto;
@@ -95,8 +99,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -104,31 +108,35 @@
   </div>
 </header>
 
-<h2>Main</h2>
+<h2>메인</h2>
 <div class="links-container">
-  <h3>Auth Module</h3>
-  <a href="auth/signup">Sign Up</a>
-  <a href="auth/signin">Sign In</a>
+  <h3>로그인과 회원가입</h3>
+  <a href="auth/signup">회원가입</a>
+  <a href="auth/signin">로그인</a>
 </div>
 <div class="links-container">
-  <h3>User Module</h3>
-  <a href="user">Profile</a>
-  <a href="user/edit">Edit Profile</a>
+  <h3>프로필</h3>
+  <a href="user">프로필</a>
+  <a href="user/edit">프로필 수정</a>
 </div>
 <div class="links-container">
-  <h3>Team Module</h3>
-  <a href="/team/create">Create Team</a>
-  <a href="team">Get Teams</a>
+  <h3>팀</h3>
+  <a href="/team/create">팀 생성</a>
+  <a href="team">팀 게시판</a>
   <!-- 모든 팀 조회 시 팀 하나씩 조회하는 로직 추가 -->
-  <a href="team/my">Get My Team</a>
+  <a href="team/my">마이 팀</a>
   <!-- 내 팀 조회 시 팀 수정하기 로직 추가 -->
   <!-- 내 팀 조회 시 팀 삭제하기 로직 추가 -->
 </div>
 <div class="links-container">
-  <h3>Match Module</h3>
-  <a href="match/create">Create Match</a>
-  <a href="match">Get Matches</a>
-  <a href="match/my">Get My Matches</a>
+  <h3>매치</h3>
+  <a href="match/create">매치 생성</a>
+  <a href="match">매치 게시판</a>
+  <a href="match/my">내 매치 조회</a>
+</div>
+<div class="links-container">
+  <h3>지도</h3>
+  <a href="map">경기장 찾기</a>
 </div>
 </body>
 </html>

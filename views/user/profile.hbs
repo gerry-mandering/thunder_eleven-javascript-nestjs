@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Profile Page</title>
+  <title>프로필 페이지</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -63,18 +63,19 @@
     .profile {
       max-width: 400px;
       margin: 30px auto 0;
-      background-color: #fff;
+      background-color: #e0e0e0;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .profile label {
+      margin-bottom: 10px;
       font-weight: bold;
     }
 
     .profile .field {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .profile .field label {
@@ -82,7 +83,15 @@
     }
 
     .profile .field span {
-      font-weight: normal;
+      display: block;
+      padding: 20px 15px;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #cacaca, #f0f0f0);
+      box-shadow:  20px 20px 60px #bebebe,
+      -20px -20px 60px #ffffff;
     }
 
     .edit-profile-button {
@@ -140,8 +149,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -149,25 +158,25 @@
   </div>
 </header>
 
-<h2>User Profile</h2>
+<h2>프로필</h2>
 <div class="profile">
   <div class="field">
-    <label>Username:</label>
+    <label>닉네임</label>
     <span>{{ userName }}</span>
   </div>
   <div class="field">
-    <label>Email:</label>
+    <label>이메일</label>
     <span>{{ email }}</span>
   </div>
   <div>
     <div class="edit-profile-button">
       <form action="/user/edit" method="GET">
-        <button>Edit Profile</button>
+        <button>프로필 수정하기</button>
       </form>
     </div>
     <div class="home-button">
       <form action="/" method="GET">
-        <button>Home</button>
+        <button>메인</button>
       </form>
     </div>
   </div>

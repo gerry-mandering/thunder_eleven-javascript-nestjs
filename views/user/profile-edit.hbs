@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Edit Profile Page</title>
+  <title>프로필 수정 페이지</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -70,11 +70,12 @@
     }
 
     .profile label {
+      margin-bottom: 10px;
       font-weight: bold;
     }
 
     .profile .field {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .profile .field label {
@@ -149,8 +150,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -158,24 +159,24 @@
   </div>
 </header>
 
-<h2>Edit Profile</h2>
+<h2>프로필 수정</h2>
 <div class="profile">
   <form action="/user/edit?_method=PATCH" method="POST">
     <div class="field">
-      <label>Username:</label>
-      <input type="text" name="userName" placeholder="{{ userName }}" required>
+      <label>닉네임</label>
+      <input type="text" name="userName" value="{{ userName }}" required>
     </div>
     <div class="field">
-      <label>Email:</label>
-      <input type="email" name="email" placeholder="{{ email }}" required>
+      <label>이메일</label>
+      <input type="email" name="email" value="{{ email }}" required>
     </div>
     <div class="edit-profile-button">
-      <button type="submit">Update Profile</button>
+      <button type="submit">프로필 수정하기</button>
     </div>
   </form>
   <div class="home-button">
     <form action="/" method="get">
-      <button>Home</button>
+      <button>메인</button>
     </form>
   </div>
 </div>

@@ -1,4 +1,4 @@
-let counter = 2; // Counter to keep track of input IDs
+let counter = 1; // Counter to keep track of input IDs
 
 function addNewMember() {
   const container = document.getElementById('inputMember');
@@ -7,7 +7,8 @@ function addNewMember() {
   input.type = 'text';
   input.name = 'member' + counter;
   input.id = 'member' + counter;
-  input.placeholder = 'Enter member name';
+  input.placeholder = '팀 멤버를 입력하시오';
+  input.required = true;
   container.appendChild(input);
   counter++;
 }

@@ -11,6 +11,7 @@ import { TeamModule } from './team/team.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 // import { MatchResultModule } from './match_result/match_result.module';
+import { MapModule } from './map/map.module';
 import * as cookieParser from 'cookie-parser';
 import * as methodOverride from 'method-override';
 
@@ -24,6 +25,7 @@ import * as methodOverride from 'method-override';
     MatchModule,
     TeamModule,
     PrismaModule,
+    MapModule,
     // MatchResultModule,
   ],
 })

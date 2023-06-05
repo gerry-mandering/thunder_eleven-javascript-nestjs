@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Participate Match Page</title>
+  <title>경기 참여 페이지</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -200,8 +200,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -209,7 +209,7 @@
   </div>
 </header>
 
-<h2>Participate Match</h2>
+<h2>경기 참여</h2>
 <div class="participate-match">
   <form action="" method="POST">
     <div hidden="hidden">
@@ -217,10 +217,10 @@
       <input id="headCountPerTeam" name="headCountPerTeam" value="{{ headCountPerTeam }}" readonly>
     </div>
     <div class="field">
-      <h3>Head Count Per Team: {{ headCountPerTeam }}</h3>
+      <h2>{{ headCountPerTeam }} VS {{ headCountPerTeam}}</h2>
     </div>
     <div class="field" id="inputMember">
-      <label>Away Team Member:</label>
+      <label>원정 팀 멤버 선택</label>
       {{#each awayTeamMember}}
         <div class="match-level">
           <span class="member" type="text" name="awayTeamParticipatingMember{{ @index }}"
@@ -232,12 +232,12 @@
       {{/each}}
     </div>
     <div class="submit-button">
-      <button type="submit">Participate</button>
+      <button type="submit">참가하기</button>
     </div>
   </form>
   <div class="home-button">
     <form action="/" method="get">
-      <button>Home</button>
+      <button>메인</button>
     </form>
   </div>
 </div>

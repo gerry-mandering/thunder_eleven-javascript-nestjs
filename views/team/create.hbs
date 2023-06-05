@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Create Team Page</title>
+  <title>팀 생성 페이지</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -70,11 +70,12 @@
     }
 
     .create-team label {
+      margin-bottom: 10px;
       font-weight: bold;
     }
 
     .create-team .field {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .create-team .field label {
@@ -90,7 +91,7 @@
 
     .create-team .submit-button {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     .create-team .submit-button button {
@@ -138,7 +139,6 @@
 
     .add-button {
       text-align: left;
-      margin-top: 5px;
     }
 
     .add-button button {
@@ -169,8 +169,8 @@
       <ul>
         <li><a href="/match">퀵 매치</a></li>
         <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="/match-result">경기 후기</a></li>
         <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
         <li><a href="/team/my">마이 팀</a></li>
         <li><a href="/user">프로필</a></li>
       </ul>
@@ -178,32 +178,31 @@
   </div>
 </header>
 
-<h2>Create Team</h2>
+<h2>팀 생성</h2>
 <div class="create-team">
   <form action="" method="POST">
     <div class="field">
-      <label>Team Name:</label>
-      <input type="text" name="teamName" id="teamName" placeholder="Enter team name" required>
+      <label>팀 이름</label>
+      <input type="text" name="teamName" id="teamName" placeholder="팀 이름을 입력하시오" required>
     </div>
     <div class="field">
-      <label>Region:</label>
-      <input type="text" name="region" id="region" placeholder="Enter region" required>
+      <label>활동 지역</label>
+      <input type="text" name="region" id="region" placeholder="활동 지역을 입력하시오" required>
     </div>
     <div class="field" id="inputMember">
-      <label>Team Member:</label>
+      <label>팀 멤버</label>
       <input class="input-member" type="text" name="member0" id="member0" value="{{ leaderName }}" readonly>
-      <input class="input-member" type="text" name="member1" id="member1" placeholder="Enter member name">
     </div>
     <div class="add-button">
       <button type="button" onclick="addNewMember()">+</button>
     </div>
     <div class="submit-button">
-      <button type="submit">Create</button>
+      <button type="submit">팀 생성하기</button>
     </div>
   </form>
   <div class="home-button">
     <form action="/" method="get">
-      <button>Home</button>
+      <button>메인</button>
     </form>
   </div>
 </div>
