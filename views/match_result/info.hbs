@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>매치결과 조회 페이지</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/match_result/css/css.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>
+      <a href="/">썬더일레븐</a>
+    </h1>
+    <nav>
+      <ul>
+        <li><a href="/match">퀵 매치</a></li>
+        <li><a href="/match-result">전적 보기</a></li>
+        <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
+        <li><a href="/team/my">마이 팀</a></li>
+        <li><a href="/user">프로필</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="teams">
+      <div class="team">
+        <img src="/match_result/img/stadium.jpg" alt="Team 1">
+        <div>
+          <div class="team_text">
+            <h2>{{ matchResult.homeTeamScore }} VS {{ matchResult.awayTeamScore }}</h2></br></br>
+            <h3>{{ homeTeam.teamName }} - {{ awayTeam.teamName }}</h3>
+            </br>
+            <p>{{ match.headCountPerTeam }}vs{{ match.headCountPerTeam }}</p>
+            <p>{{ match.matchDateTime }}</p>
+            <p>{{ match.stadiumName }}</p>
+            <form action="/match-result/{{ matchResult.id }}/score" method="GET">
+              <div class="score-button">
+                <button type="submit">점수 입력</button>
+              </div>
+            </form>
+          </div>
+          <div class="manner-rating">
+            <h2>매너 평가</h2></br></br>
+            </br>
+            <div class="manner-rating-result">
+              <div>
+                <h3>{{ homeTeam.teamName }}의 매너</h3>
+                <p>{{matchResult.homemannerRate}}</p>
+              </div>
+              <div>
+                <h3>{{ awayTeam.teamName }}의 매너</h3>
+                <p>{{matchResult.awaymannerRate}}</p>
+              </div>
+            </div></br></br>
+            <h3>상대팀 평가하기</h3>
+            <div class="manner-rating-button">
+              <form action="/match-result/mannerup/{{ matchResult.id }}/{{ match.id}}" method="POST">
+                <div class="good-button">
+                  <button type="submit">GOOD</button>
+                </div>
+              </form>
+              <form action="/match-result/mannerdown/{{ matchResult.id }}/{{ match.id}}" method="POST">
+                <div class="bad-button">
+                  <button type="submit">BAD</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="comment">
+            <h2>경기 후기</h2>
+            <br />
+            <br />
+            <li class="comment-header">
+              <span>댓글</span>
+              <span>닉네임</span>
+            </li>
+            {{#each comments}}
+              <li>
+                <span>{{ this.content }}</span>
+                <span>{{ this.userName }}</span>
+              </li>
+            {{/each}}
+            <form action="/match-result/{{ matchResult.id }}/comment" method="POST">
+              <div>
+                <input class="comment-input" type="text" name="commentString" id="commentString"
+                       placeholder="댓글을 입력해주십시오" required>
+              </div>
+              <div class="comment-button">
+                <button type="submit">댓글 작성하기</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="home-team">
+        <table>
+          <caption>{{ homeTeam.teamName }}</caption>
+          {{#each match.homeTeamParticipatingMember}}
+            <tr>
+              <th>{{ this }}</th>
+            </tr>
+          {{/each}}
+        </table>
+      </div>
+      <div class="away-team">
+        <table>
+          <caption>{{ awayTeam.teamName }}</caption>
+          {{#each match.awayTeamParticipatingMember}}
+            <tr>
+              <th>{{ this }}</th>
+            </tr>
+          {{/each}}
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2023 썬더일레븐.</p>
+  </div>
+</footer>
+</body>
+</html>

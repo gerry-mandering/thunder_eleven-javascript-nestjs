@@ -270,6 +270,7 @@ export class MatchService {
     await this.prisma.matchResult.create({
       data: {
         matchId,
+        userId: match.homeTeamLeaderId,
       },
     });
 

@@ -14,6 +14,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MapModule } from './map/map.module';
 import * as cookieParser from 'cookie-parser';
 import * as methodOverride from 'method-override';
+import { MatchResultModule } from './match_result/match_result.module';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import * as methodOverride from 'method-override';
     TeamModule,
     PrismaModule,
     MapModule,
-    // MatchResultModule,
+    MatchResultModule,
   ],
 })
 export class AppModule implements NestModule {

@@ -1,0 +1,310 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+nav {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+nav ul {
+    list-style: none;
+    margin: 10px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 50px;
+}
+
+nav ul li {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li :hover {
+    text-decoration: none;
+}
+
+main {
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.match-info {
+    margin-bottom: 40px;
+}
+
+.teams {
+    display: flex;
+}
+
+.table {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.home-team table {
+    width: 100px;
+    margin: 10px;
+}
+
+.away-team table {
+    width: 100px;
+    margin: 10px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 17px;
+}
+
+.home-team caption {
+    border: 1px solid black;
+    padding: 5px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    background-color: #ff3030
+}
+
+.away-team caption {
+    border: 1px solid black;
+    padding: 5px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    background-color: #3c4cff
+}
+
+.team_text {
+    text-align: center;
+}
+
+.team_text {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.team_text h2 {
+    margin-top: 10px;
+}
+
+.manner-rating {
+    text-align: center;
+}
+
+.manner-rating {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.manner-rating h2 {
+    margin-top: 10px;
+}
+
+.manner-rating-result {
+    margin: auto 30px;
+    justify-content: space-between;
+    display: flex;
+}
+
+.manner-rating-result p {
+    font-size: 40px;
+    color: #ffcc00;
+}
+
+.manner-rating-button {
+    margin: auto 150px;
+    justify-content: space-between;
+    display: flex;
+}
+
+.good-button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.good-button button {
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.good-button button:hover {
+    background-color: #007B9E;
+}
+
+.bad-button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.bad-button button {
+    background-color: #FF8766;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bad-button button:hover {
+    background-color: #DB6C4D;
+}
+
+.comment {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.comment li:last-child {
+    border-bottom: none;
+}
+
+.comment li span {
+    flex: 1;
+}
+
+.comment .header {
+    font-weight: bold;
+}
+
+.comment {
+    text-align: center;
+}
+
+.comment {
+    border-bottom: 1px solid black;
+}
+
+.comment h2 {
+    margin-top: 10px;
+}
+
+.comment-header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.team img {
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
+    margin-bottom: 3px;
+}
+
+.score-button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.score-button button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.score-button button:hover {
+    background-color: #45a049;
+}
+
+.comment-input {
+    margin-top: 30px;
+    width: 500px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+}
+
+.comment-button {
+    text-align: right;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.comment-button button {
+    background-color: #924DDB;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment-button button:hover {
+    background-color: #7f41ba;
+}
+
+footer {
+    position: static;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center;
+}

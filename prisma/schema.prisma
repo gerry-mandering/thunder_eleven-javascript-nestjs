@@ -5,6 +5,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../ERD.svg"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -22,6 +27,8 @@ model User {
 
   // Link
   teamAsLeader Team[]
+  MatchResult  MatchResult[]
+  Comment      Comment[]
 
   @@map("users")
 }
@@ -39,7 +46,7 @@ model Team {
   headCount   Int
 
   leaderId   Int
-  teamLeader User     @relation(fields: [leaderId], references: [id])
+  teamLeader User     @relation(fields: [leaderId], references: [id], onDelete: Cascade)
   teamMember String[]
 
   // Link
@@ -62,13 +69,13 @@ model Match {
   headCountPerTeam Int // 사용자가 입력
 
   homeTeamId                     Int
-  homeTeam                       Team     @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  homeTeam                       Team     @relation("HomeTeam", fields: [homeTeamId], references: [id], onDelete: Cascade)
   homeTeamLeaderId               Int
   homeTeamParticipatingHeadCount Int
   homeTeamParticipatingMember    String[]
 
   awayTeamId                     Int?
-  awayTeam                       Team?    @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  awayTeam                       Team?    @relation("AwayTeam", fields: [awayTeamId], references: [id], onDelete: Cascade)
   awayTeamLeaderId               Int?
   awayTeamParticipatingHeadCount Int?
   awayTeamParticipatingMember    String[]
@@ -83,44 +90,40 @@ model MatchResult {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  userId      Int
+  createdUser User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   matchId Int
   match   Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
 
-  homeTeamScore  Int?
-  homeComment    String?
-  homemannerRate Evaluation?
+  homeTeamScore   Int?
+  homemannerRate  Evaluation?
+  homemannerCount Int         @default(0)
 
-  awayTeamScore  Int?
-  awayComment    String?
-  awaymannerRate Evaluation?
+  awayTeamScore   Int?
+  awaymannerRate  Evaluation?
+  awaymannerCount Int         @default(0)
+
+  comments Comment[]
 
   @@map("match results")
 }
 
-// 이전 버전
-// model MatchResult {
-//   id        Int      @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//
-//   stadiumName      String
-//   matchLevel       Level
-//   headCountPerTeam Int
-//
-//   homeTeamId     Int
-//   homeTeam       Match      @relation("Home", fields: [homeTeamId], references: [id])
-//   homeTeamScore  Int
-//   homeComment    String
-//   homemannerRate Evaluation
-//
-//   awayTeamId     Int
-//   awayTeam       Match      @relation("Away", fields: [awayTeamId], references: [id])
-//   awayTeamScore  Int
-//   awayComment    String
-//   awaymannerRate Evaluation
-//
-//   @@map("match results")
-// }
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  matchResultId Int
+  matchResult   MatchResult @relation(fields: [matchResultId], references: [id], onDelete: Cascade)
+
+  content String
+
+  @@map("comments")
+}
 
 enum Level {
   BEGINNER

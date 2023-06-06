@@ -1,142 +1,149 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>메인 페이지</title>
-  <style>
+  <head>
+    <title>메인 페이지</title>
+    <style>
       body {
-          font-family: Arial, sans-serif;
-          background-color: #f5f5f5;
-          margin: 0;
-          padding: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 20px;
       }
 
       .container {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 0 20px;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
       }
 
       .container a {
-          color: #ffffff;
-          text-decoration: none;
+        color: #ffffff;
+        text-decoration: none;
       }
 
       header {
-          background-color: #333;
-          color: #fff;
-          padding: 20px 0;
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
       }
 
-      h1, h2, h3, h4 {
-          margin: 0;
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
       }
 
       nav {
-          border-top: 2px solid white;
-          border-bottom: 2px solid white;
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
       }
 
       nav ul {
-          list-style: none;
-          margin: 10px;
+        list-style: none;
+        margin: 10px;
       }
 
       nav ul li {
-          display: inline-block;
-          margin-right: 50px;
+        display: inline-block;
+        margin-right: 50px;
       }
 
       nav ul li {
-          color: #fff;
-          text-decoration: none;
+        color: #fff;
+        text-decoration: none;
       }
 
       nav ul li :hover {
-          text-decoration: none;
+        text-decoration: none;
       }
 
       h2 {
-          text-align: center;
-          margin-top: 20px;
+        text-align: center;
+        margin-top: 20px;
       }
 
       h3 {
-          margin-bottom: 20px;
+        margin-bottom: 20px;
       }
 
       .links-container {
-          max-width: 400px;
-          margin: 20px auto;
-          background-color: #fff;
-          padding: 20px;
-          border-radius: 5px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
 
       .links-container a {
-          display: block;
-          margin-bottom: 10px;
-          padding: 10px;
-          background-color: #4CAF50;
-          color: #fff;
-          text-decoration: none;
-          text-align: center;
-          border-radius: 5px;
+        display: block;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 5px;
       }
 
       .links-container a:hover {
-          background-color: #45a049;
+        background-color: #45a049;
       }
-  </style>
-</head>
-<body>
-<header>
-  <div class="container">
-    <h1>
-      <a href="/">썬더일레븐</a>
-    </h1>
-    <nav>
-      <ul>
-        <li><a href="/match">퀵 매치</a></li>
-        <li><a href="/match-result">전적 보기</a></li>
-        <li><a href="">용병 모집</a></li>
-        <li><a href="/map">경기장 찾기</a></li>
-        <li><a href="/team/my">마이 팀</a></li>
-        <li><a href="/user">프로필</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>
+          <a href="/">썬더일레븐</a>
+        </h1>
+        <nav>
+          <ul>
+            <li><a href="/match">퀵 매치</a></li>
+            <li><a href="/match-result">전적 보기</a></li>
+            <li><a href="">용병 모집</a></li>
+            <li><a href="/map">경기장 찾기</a></li>
+            <li><a href="/team/my">마이 팀</a></li>
+            <li><a href="/user">프로필</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-<h2>메인</h2>
-<div class="links-container">
-  <h3>로그인과 회원가입</h3>
-  <a href="auth/signup">회원가입</a>
-  <a href="auth/signin">로그인</a>
-</div>
-<div class="links-container">
-  <h3>프로필</h3>
-  <a href="user">프로필</a>
-  <a href="user/edit">프로필 수정</a>
-</div>
-<div class="links-container">
-  <h3>팀</h3>
-  <a href="/team/create">팀 생성</a>
-  <a href="team">팀 게시판</a>
-  <!-- 모든 팀 조회 시 팀 하나씩 조회하는 로직 추가 -->
-  <a href="team/my">마이 팀</a>
-  <!-- 내 팀 조회 시 팀 수정하기 로직 추가 -->
-  <!-- 내 팀 조회 시 팀 삭제하기 로직 추가 -->
-</div>
-<div class="links-container">
-  <h3>매치</h3>
-  <a href="match/create">매치 생성</a>
-  <a href="match">매치 게시판</a>
-  <a href="match/my">내 매치 조회</a>
-</div>
-<div class="links-container">
-  <h3>지도</h3>
-  <a href="map">경기장 찾기</a>
-</div>
-</body>
+    <h2>메인</h2>
+    <div class="links-container">
+      <h3>로그인과 회원가입</h3>
+      <a href="auth/signup">회원가입</a>
+      <a href="auth/signin">로그인</a>
+    </div>
+    <div class="links-container">
+      <h3>프로필</h3>
+      <a href="user">프로필</a>
+      <a href="user/edit">프로필 수정</a>
+    </div>
+    <div class="links-container">
+      <h3>팀</h3>
+      <a href="/team/create">팀 생성</a>
+      <a href="team">팀 게시판</a>
+      <!-- 모든 팀 조회 시 팀 하나씩 조회하는 로직 추가 -->
+      <a href="team/my">마이 팀</a>
+      <!-- 내 팀 조회 시 팀 수정하기 로직 추가 -->
+      <!-- 내 팀 조회 시 팀 삭제하기 로직 추가 -->
+    </div>
+    <div class="links-container">
+      <h3>매치</h3>
+      <a href="match/create">매치 생성</a>
+      <a href="match">매치 게시판</a>
+      <a href="match/my">내 매치 조회</a>
+    </div>
+    <div class="links-container">
+      <h3>전적 보기</h3>
+      <a href="match-result">전적 보기</a>
+    </div>
+    <div class="links-container">
+      <h3>지도</h3>
+      <a href="map">경기장 찾기</a>
+    </div>
+  </body>
 </html>

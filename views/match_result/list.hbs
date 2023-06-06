@@ -1,0 +1,139 @@
+<html>
+<head>
+  <title>전적 게시판 페이지</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .container a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+    }
+
+    h1, h2,
+    h3, h4 {
+      margin: 0;
+    }
+
+    nav {
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 10px;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 50px;
+    }
+
+    nav ul li {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav ul li :hover {
+      text-decoration: none;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .match-result-list {
+      max-width: 1200px;
+      margin: 20px auto 0;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .match-result-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .match-result-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+
+    .match-result-list li:last-child {
+      border-bottom: none;
+    }
+
+    .match-result-list li span {
+      flex: 1;
+    }
+
+    .match-result-list .header {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class='container'>
+    <h1>
+      <a href='/'>썬더일레븐</a>
+    </h1>
+    <nav>
+      <ul>
+        <li><a href='/match'>퀵 매치</a></li>
+        <li><a href='/match-result'>전적 보기</a></li>
+        <li><a href=''>용병 모집</a></li>
+        <li><a href='/map'>경기장 찾기</a></li>
+        <li><a href='/team/my'>마이 팀</a></li>
+        <li><a href='/user'>프로필</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<h2>전적 게시판</h2>
+<div class='match-result-list'>
+  <ul>
+    <li class='header'>
+      <span>경기장</span>
+      <span>홈 팀</span>
+      <span>원정 팀</span>
+      <span>스코어</span>
+      <span>경기 인원</span>
+    </li>
+    {{#each matchResults}}
+      <li>
+        <span><a href='/match-result/{{this.id}}'>{{this.match.stadiumName}}</a></span>
+        <span>{{this.homeTeam.teamName}}</span>
+        <span>{{this.awayTeam.teamName}}</span>
+        <span>{{this.homeTeamScore}} - {{this.awayTeamScore}}</span>
+        <span>{{this.match.headCountPerTeam}} VS {{this.match.headCountPerTeam}}</span>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+</body>
+</html>
