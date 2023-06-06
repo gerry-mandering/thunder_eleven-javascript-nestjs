@@ -2,11 +2,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
-// export class JwtGuard extends AuthGuard('jwt') {
-//   constructor() {
-//     super();
-//   }
-// }
 export class JwtGuard extends AuthGuard('jwt') {
   canActivate(
     context: ExecutionContext,

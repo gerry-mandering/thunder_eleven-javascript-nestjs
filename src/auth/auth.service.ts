@@ -28,7 +28,7 @@ export class AuthService {
         },
       });
 
-      // 저장된 유저 리턴
+      // JWT 토큰을 쿠키에 저장
       return this.setJwtToCookie(user.id, user.email, response);
     } catch (error) {
       if (error.code == 'P2002') {
@@ -55,7 +55,7 @@ export class AuthService {
     // 비밀번호가 일치하지 않으면 에러
     if (!pwMatches) throw new ForbiddenException('Credentials incorrect');
 
-    // 유저 리턴
+    //JWT 토큰 쿠키에 저장
     return this.setJwtToCookie(user.id, user.email, response);
   }
 
@@ -64,13 +64,13 @@ export class AuthService {
     email: string,
     response: Response,
   ): Promise<{ access_token: string }> {
-    const payolad = {
+    const payload = {
       sub: userId,
       email,
     };
 
     const secret = await this.config.get('JWT_SECRET');
-    const token = await this.jwt.signAsync(payolad, {
+    const token = await this.jwt.signAsync(payload, {
       expiresIn: '15m',
       secret: secret,
     });
