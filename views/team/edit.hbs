@@ -210,7 +210,7 @@
   <!--  <form action="/team/{{ teamId }}/edit?_method=PATCH" method="POST">-->
   <form action="" method="POST">
     <div class="field" hidden="hidden">
-      <input class="teamId" type="text" name="teamId" id="teamId" value="{{ teamId }}" readonly>
+      <input class="teamId" type="text" name="teamId" id="teamId" value="{{ id }}" readonly>
     </div>
     <div class="field">
       <label>팀 이름</label>
@@ -253,7 +253,7 @@
       <button type="submit">팀 수정하기</button>
     </div>
   </form>
-  <form action="/team/{{ teamId }}?_method=DELETE" method="POST">
+  <form action="/team/{{ id }}?_method=DELETE" method="POST">
     <div class="delete-team-button">
       <button type="submit">팀 삭제하기</button>
     </div>

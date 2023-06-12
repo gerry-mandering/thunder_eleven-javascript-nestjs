@@ -188,7 +188,7 @@
   </div>
   <div class="field">
     <label>팀 리더</label>
-    <span>{{ teamLeader }}</span>
+    <span>{{ leaderName }}</span>
   </div>
   <div class="field">
     <label>팀 멤버</label>
@@ -197,7 +197,7 @@
     {{/each}}
   </div>
   <div class="edit-team-button">
-    <form action="/team/{{ teamId }}/edit" method="GET">
+    <form action="/team/{{ id }}/edit" method="GET">
       <button>팀 수정하기</button>
     </form>
   </div>
