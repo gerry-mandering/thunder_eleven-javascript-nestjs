@@ -19,7 +19,7 @@ export class TeamService {
 
   // 팀 생성
   async createTeam(userId: number, dto: CreateTeamDto) {
-    // 유저의 팀이 이미 존재하는지 확인
+    // DB에서 유저가 속한 팀 가져오기
     const team = await this.prisma.team.findFirst({
       where: {
         leaderId: userId,

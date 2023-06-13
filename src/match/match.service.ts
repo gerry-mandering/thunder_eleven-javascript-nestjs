@@ -12,31 +12,24 @@ import { Level, Team, User } from '@prisma/client';
 export class MatchService {
   constructor(private prisma: PrismaService) {}
 
-  //공통 로직
-  findTeam(userId: number) {
-    return this.prisma.team.findFirst({
-      where: {
-        leaderId: userId,
-      },
-    });
-  }
-
+  // 매치 생성 페이지 렌더링
   async renderMatchCreatePage(user: User) {
-    const team = await this.findTeam(user.id);
+    // DB에서 유저가 속한 팀 가져오기
+    const team = await this.findTeamByUserId(user.id);
 
+    // 유저의 팀이 존재하지 않으면 예외 던지기
     if (!team || team.leaderId !== user.id)
       throw new ForbiddenException(
         'renderMatchCreatePage Denied - Not a leader of any team',
       );
 
-    const render_data = {
+    // 팀 정보 반환
+    return {
       matchLevel: Level[team.teamLevel],
       homeTeam: team.teamName,
       homeTeamLeader: user.userName,
       homeTeamMember: team.teamMember,
     };
-
-    return render_data;
   }
 
   getMatchLevel(matchLevelBitMask: number) {
@@ -52,38 +45,39 @@ export class MatchService {
     return matchLevel;
   }
 
-  //팀장이 매치 등록
+  // 매치 생성
   async createMatch(userId: number, dto: CreateMatchDto) {
-    const homeTeam = await this.findTeam(userId);
+    // DB에서 유저가 속한 팀 가져오기
+    const team = await this.findTeamByUserId(userId);
 
-    if (!homeTeam || homeTeam.leaderId !== userId)
+    // 유저의 팀이 존재하지 않으면 예외 던지기
+    if (!team || team.leaderId !== userId)
       throw new ForbiddenException(
         'createMatch denied - Not a leader of any team',
       );
 
+    // 홈 팀 멤버들의 이름 문자열 배열로 변환
     const homeTeamParticipatingMember =
       dto.homeTeamParticipatingMemberString.split('/');
 
-    const match = await this.prisma.match.create({
+    return this.prisma.match.create({
       data: {
         stadiumName: dto.stadiumName,
         stadiumAddress: dto.stadiumAddress,
         matchDateTime: dto.matchDateTime,
         matchLevel: this.getMatchLevel(dto.matchLevelBitMask),
         headCountPerTeam: dto.headCountPerTeam,
-        homeTeamId: homeTeam.id,
-        homeTeamLeaderId: homeTeam.leaderId,
+        homeTeamId: team.id,
+        homeTeamLeaderId: team.leaderId,
         homeTeamParticipatingHeadCount: homeTeamParticipatingMember.length,
         homeTeamParticipatingMember: {
           set: homeTeamParticipatingMember,
         },
       },
     });
-
-    return match;
   }
 
-  //전체 매치 리스트 조회
+  // 전체 매치 목록 조회
   async getMatches() {
     const matches = await this.prisma.match.findMany();
 
@@ -116,7 +110,7 @@ export class MatchService {
     };
   }
 
-  //자신이 등록하거나 Away팀으로 참여한 매치 조회
+  // 유저가 속한 매치 조회
   async getMyMatches(userId: number) {
     const matches = await this.prisma.match.findMany({
       where: {
@@ -160,7 +154,7 @@ export class MatchService {
     };
   }
 
-  //특정 매치 조회
+  // 특정 매치 조회
   async getMatchById(matchId: number) {
     const match = await this.prisma.match.findFirst({
       where: {
@@ -195,6 +189,7 @@ export class MatchService {
     return render_data;
   }
 
+  // 매치 참여 페이지 렌더링
   async renderParticipantPage(user: User, matchId: number) {
     const match = await this.prisma.match.findUnique({
       where: {
@@ -236,7 +231,7 @@ export class MatchService {
     return render_date;
   }
 
-  //Away팀의 참여 신청
+  // 매치 참여 신청
   async participateAsAwayTeam(
     userId: number,
     matchId: number,
@@ -255,7 +250,7 @@ export class MatchService {
         'participateAsAwayTeam denied - Already closed match',
       );
 
-    const team = await this.findTeam(userId);
+    const team = await this.findTeamByUserId(userId);
     //팀이 없거나, home팀이 away팀으로 중복 참여하는 경우
     if (!team || team.leaderId !== userId)
       throw new ForbiddenException(
@@ -290,7 +285,7 @@ export class MatchService {
     });
   }
 
-  //매치를 등록한 팀장이 매치 수정(stadiumName, headCountPerTeam, homeTeamHeadCount, homeTeamMember)
+  // 매치 수정
   async editMatchAsHomeTeamById(
     userId: number,
     matchId: number,
@@ -318,7 +313,7 @@ export class MatchService {
     });
   }
 
-  //Away팀으로 참여한 팀장이 매치 수정(awayTeamHeadCount, awayTeamMember)
+  // Away팀이 매치 수정
   async editMatchAsAwayTeamById(
     userId: number,
     matchId: number,
@@ -346,7 +341,7 @@ export class MatchService {
     });
   }
 
-  //Away팀으로 참여한 팀장이 매치 취소
+  // Away팀이 매치 취소
   async cancelMatchAsAwayTeamById(userId: number, matchId: number) {
     //matchId로 매치 가져오기
     const match = await this.prisma.match.findUnique({
@@ -385,7 +380,7 @@ export class MatchService {
     });
   }
 
-  //매치를 등록한 팀장이 매치 삭제
+  // 매치 삭제
   async deleteMatchById(userId: number, matchId: number) {
     const match = await this.prisma.match.findUnique({
       where: {
@@ -401,6 +396,23 @@ export class MatchService {
     return this.prisma.match.delete({
       where: {
         id: matchId,
+      },
+    });
+  }
+
+  // 공통 코드
+  findTeamByUserId(userId: number) {
+    return this.prisma.team.findFirst({
+      where: {
+        leaderId: userId,
+      },
+    });
+  }
+
+  findTeamByTeamId(teamId: number) {
+    return this.prisma.team.findUnique({
+      where: {
+        id: teamId,
       },
     });
   }
