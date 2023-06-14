@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+nav {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+nav ul {
+    list-style: none;
+    margin: 10px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 50px;
+}
+
+nav ul li {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li :hover {
+    text-decoration: none;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.team-info {
+    max-width: 400px;
+    margin: 20px auto 0;
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.team-info label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.team-info .field {
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.team-info .field label {
+    display: block;
+}
+
+.team-info .field span {
+    display: block;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #cacaca, #f0f0f0);
+    box-shadow: 20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
+}
+
+.team-info .edit-team-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.team-info .edit-team-button button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.team-info .edit-team-button button:hover {
+    background-color: #45a049;
+}
+
+.team-info .home-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.team-info .home-button button {
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.team-info .home-button button:hover {
+    background-color: #007B9E;
+}
