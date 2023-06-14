@@ -1,0 +1,187 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+nav {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+nav ul {
+    list-style: none;
+    margin: 10px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 50px;
+}
+
+nav ul li {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li :hover {
+    text-decoration: none;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.create-match {
+    max-width: 400px;
+    margin: 20px auto 0;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.create-match label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.create-match .field {
+    margin-bottom: 30px;
+}
+
+.create-match .field label {
+    display: block;
+}
+
+.create-match .field input,
+.create-match .field select {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.match-level {
+    margin-top: 10px;
+}
+
+.match-level input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.match-level label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 40px; /* 20% of the original width */
+    height: 20px; /* 20% of the original height */
+    background: grey;
+    display: block;
+    border-radius: 10px; /* 20% of the original border radius */
+    position: relative;
+}
+
+.match-level label:after {
+    content: '';
+    position: absolute;
+    top: 2px; /* Adjust the top position to center the inner circle */
+    left: 2px; /* Adjust the left position to center the inner circle */
+    width: 16px; /* 20% of the original width */
+    height: 16px; /* 20% of the original height */
+    background: #fff;
+    border-radius: 50%; /* Maintain a circular shape */
+    transition: 0.3s;
+}
+
+.match-level input:checked + label {
+    background: #bada55;
+}
+
+.match-level input:checked + label:after {
+    left: calc(100% - 2px); /* Adjust the left position to maintain proportions */
+    transform: translateX(-100%);
+}
+
+.match-level label:active:after {
+    width: 20px; /* 20% of the original width */
+}
+
+.match-level body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.create-match .submit-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.create-match .submit-button button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-match .submit-button button:hover {
+    background-color: #45a049;
+}
+
+.home-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.home-button button {
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.home-button button:hover {
+    background-color: #007B9E;
+}
+
+.member {
+    margin-top: 3px;
+}
